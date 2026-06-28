@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Rifas Lucha México</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+        :root {
+            --color-fondo: #0b0f19;
+            --color-card: #151d30;
+            --color-borde: #24304f;
+            --color-verde: #006847;
+            --color-verde-bright: #059669;
+            --color-rojo: #d91d2a;
+            --color-amarillo: #f59e0b;
+            --color-texto: #f8fafc;
+            --color-texto-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- LOGIN SCREEN --- */
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--color-card);
+            border: 2px solid var(--color-borde);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .login-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--color-amarillo);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-texto-muted);
+        }
+
+        .form-input {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1.5px solid var(--color-borde);
+            background-color: var(--color-fondo);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+        .form-input:focus { outline: none; border-color: var(--color-amarillo); }
+
+        .btn-login {
+            width: 100%;
+            background-color: var(--color-amarillo);
+            color: #000000;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: transform 0.1s, background-color 0.2s;
+            margin-top: 10px;
+        }
+        .btn-login:hover { background-color: #ffc107; }
+        .btn-login:active { transform: scale(0.98); }
+
+        /* --- DASHBOARD SYSTEM --- */
+        .dashboard-container {
+            width: 95%;
+            max-width: 1100px;
+            background-color: var(--color-card);
+            border: 2px solid var(--color-borde);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            display: none; /* Hidden until success login */
+            flex-direction: column;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .dash-header {
+            background-color: #0a0e1a;
+            border-bottom: 2px solid var(--color-borde);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dash-title {
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--color-amarillo);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-logout {
+            background-color: var(--color-rojo);
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        /* --- NAVIGATION TABS --- */
+        .tabs-nav {
+            display: flex;
+            background-color: rgba(0,0,0,0.2);
+            border-bottom: 1px solid var(--color-borde);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            color: var(--color-texto-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover { color: #ffffff; }
+        .tab-btn.active {
+            color: var(--color-amarillo);
+            border-bottom-color: var(--color-amarillo);
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        .tab-content { padding: 30px; display: none; }
+        .tab-content.active { display: block; }
+
+        /* --- CARD SECTIONS --- */
+        .dash-card {
+            background-color: var(--color-fondo);
+            border: 1px solid var(--color-borde);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        .dash-card:last-child { margin-bottom: 0; }
+
+        .dash-card-title {
+            font-size: 1.05rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            color: var(--color-amarillo);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dash-card p {
+            font-size: 0.8rem;
+            color: var(--color-texto-muted);
+            margin-bottom: 15px;
+        }
+
+        .btn-action {
+            background-color: var(--color-verde);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-action:hover { background-color: var(--color-verde-bright); }
+
+        /* --- GRID AJUSTES --- */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        @media(min-width: 768px) { .settings-grid { grid-template-columns: 1fr 1fr; } }
+
+        /* --- CONTROL BUSCADOR --- */
+        .search-row { display: flex; gap: 10px; margin-bottom: 20px; }
+
+        .search-results-card {
+            background-color: var(--color-card);
+            border: 1.5px solid var(--color-borde);
+            border-radius: 8px;
+            padding: 20px;
+            display: none;
+        }
+
+        .results-head {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--color-borde); padding-bottom: 10px;
+        }
+
+        .badge-folio { background-color: rgba(245, 158, 11, 0.1); color: var(--color-amarillo); padding: 6px 12px; border-radius: 4px; font-weight: 900; }
+        .badge-status { padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; }
+        .badge-status.pagado { background-color: var(--color-verde-bright); color: #ffffff; }
+        .badge-status.apartado { background-color: var(--color-amarillo); color: #000000; }
+
+        .results-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--color-borde); font-size: 0.85rem; }
+        .results-row span { color: var(--color-texto-muted); font-weight: 700; }
+        .results-row strong { color: #ffffff; }
+
+        .control-actions-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; justify-content: center; }
+
+        .btn-ctrl {
+            padding: 10px 14px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; color: #ffffff; text-transform: uppercase;
+        }
+        .btn-ctrl-send { background-color: #25d366; }
+        .btn-ctrl-pay { background-color: var(--color-verde); }
+        .btn-ctrl-revert { background-color: var(--color-amarillo); color: #000; }
+        .btn-ctrl-delete { background-color: var(--color-rojo); }
+
+        .winner-delete-item {
+            display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--color-borde); font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PANTALLA DE INICIO DE SESIÓN -->
+    <div class="login-container" id="loginBox">
+        <h2 class="login-title">Acceso Administrador</h2>
+        <form onsubmit="procesarLogin(event)">
+            <div class="form-group">
+                <label for="adminUser">Usuario</label>
+                <input type="text" id="adminUser" class="form-input" required placeholder="Ingresar usuario" autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="adminPass">Contraseña</label>
+                <input type="password" id="adminPass" class="form-input" required placeholder="••••••••" autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn-login">Entrar</button>
+        </form>
+    </div>
+
+    <!-- DASHBOARD DE CONTROL PRINCIPAL -->
+    <div class="dashboard-container" id="dashboard">
+        <div class="dash-header">
+            <h1 class="dash-title">Panel Administrativo</h1>
+            <button class="btn-logout" onclick="procesarLogout()">Cerrar Sesión</button>
+        </div>
+
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="cambiarPestaña('tab-reportes', this)">📊 Reportes</button>
+            <button class="tab-btn" onclick="cambiarPestaña('tab-sorteo', this)">🎁 Sorteo</button>
+            <button class="tab-btn" onclick="cambiarPestaña('tab-ganadores', this)">🏆 Ganadores</button>
+            <button class="tab-btn" onclick="cambiarPestaña('tab-boletos', this)">🎫 Buscar Boletos</button>
+        </nav>
+
+        <!-- PESTAÑA 1: REPORTES -->
+        <div class="tab-content active" id="tab-reportes">
+            <div class="dash-card">
+                <h3 class="dash-card-title">Grid de Reportes</h3>
+                <p>Descarga el listado de folios reservados y liquidados en formato CSV compatible con Microsoft Excel y Google Sheets.</p>
+                <div style="display: flex; gap: 10px;">
+                    <select id="adminReportMonth" class="form-input" style="max-width: 220px; font-weight: bold; padding: 10px;">
+                        <option value="Sorteo_Mayo">Sorteo Mayo</option>
+                    </select>
+                    <button class="btn-action" onclick="exportarBaseDatosACSV()">Descargar (.CSV)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 2: AJUSTES SORTEO -->
+        <div class="tab-content" id="tab-sorteo">
+            <div class="dash-card">
+                <h3 class="dash-card-title">Configuración del Sorteo Activo</h3>
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label>Fecha de la Rifa</label>
+                        <input type="text" id="adminInputDate" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Precio de Boleto ($)</label>
+                        <input type="number" id="adminInputPrice" class="form-input">
+                    </div>
+                    <!-- Premios -->
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>1er Lugar (Premio)</label>
+                        <input type="text" id="adminInputPrize1" class="form-input">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Imagen 1er Premio</label>
+                        <input type="text" id="adminInputPrize1Img" class="form-input" placeholder="URL o sube una imagen local abajo">
+                        <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminInputPrize1Img')">
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>2do Lugar (Premio)</label>
+                        <input type="text" id="adminInputPrize2" class="form-input">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Imagen 2do Premio</label>
+                        <input type="text" id="adminInputPrize2Img" class="form-input" placeholder="URL o sube una imagen local abajo">
+                        <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminInputPrize2Img')">
+                    </div>
+
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>3er Lugar (Premio)</label>
+                        <input type="text" id="adminInputPrize3" class="form-input">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Imagen 3er Premio</label>
+                        <input type="text" id="adminInputPrize3Img" class="form-input" placeholder="URL o sube una imagen local abajo">
+                        <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminInputPrize3Img')">
+                    </div>
+                </div>
+                <button class="btn-action" style="width: 100%; margin-top: 25px;" onclick="guardarConfigSorteo()">💾 Guardar Ajustes</button>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 3: GANADORES -->
+        <div class="tab-content" id="tab-ganadores">
+            <div class="dash-card">
+                <h3 class="dash-card-title">Registrar Ganador Anterior</h3>
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label>Nombre del Ganador</label>
+                        <input type="text" id="adminWinnerName" class="form-input" placeholder="Ej. Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label>Boleto Ganador</label>
+                        <input type="text" id="adminWinnerTicket" class="form-input" placeholder="Ej. #863914" maxlength="6">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Premio Obtenido</label>
+                        <input type="text" id="adminWinnerPrize" class="form-input" placeholder="Ej. iPad Retina Display">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Imagen del Ganador</label>
+                        <input type="text" id="adminWinnerImg" class="form-input" placeholder="URL o sube una imagen local abajo">
+                        <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminWinnerImg')">
+                    </div>
+                </div>
+                <button class="btn-action" style="width: 100%; margin-top: 20px; background-color: var(--color-verde);" onclick="agregarGanadorLocal()">➕ Registrar Ganador</button>
+            </div>
+
+            <div class="dash-card">
+                <h3 class="dash-card-title">Lista de Ganadores Activos</h3>
+                <div id="adminWinnerDeleteList" style="border:1px solid var(--color-borde); border-radius:6px; background-color: var(--color-fondo); overflow: hidden;">
+                    <!-- Se genera por JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 4: BUSCADOR BOLETOS -->
+        <div class="tab-content" id="tab-boletos">
+            <div class="dash-card">
+                <h3 class="dash-card-title">Control de Boletos</h3>
+                <div class="search-row">
+                    <input type="text" id="adminModalSearchInput" class="form-input" style="flex:1;" placeholder="Ingresar folio de boleto (ej: 863914)">
+                    <button class="btn-action" onclick="buscarBoletoAdminModal()">🔍 Buscar</button>
+                </div>
+
+                <!-- Tarjeta con Resultados -->
+                <div class="search-results-card" id="adminModalResults">
+                    <div class="results-head">
+                        <span class="badge-folio" id="adminResFolio">#000000</span>
+                        <span class="badge-status" id="adminResStatus">N/A</span>
+                    </div>
+                    <div class="results-row">
+                        <span>👤 Nombre</span>
+                        <strong id="adminResName">-</strong>
+                    </div>
+                    <div class="results-row">
+                        <span>💬 WhatsApp</span>
+                        <strong id="adminResPhone">-</strong>
+                    </div>
+                    <div class="results-row">
+                        <span>📅 Apartado</span>
+                        <strong id="adminResDate">-</strong>
+                    </div>
+                    <div class="results-row" style="border-bottom: none;">
+                        <span>📄 Comprobante</span>
+                        <strong id="adminResComprobante">-</strong>
+                    </div>
+                    <div class="control-actions-row">
+                        <button class="btn-ctrl btn-ctrl-send" onclick="simularEnvioWhatsApp()">💬 Enviar WhatsApp</button>
+                        <button class="btn-ctrl btn-ctrl-pay" onclick="adminModalAccion('pagar')">📝 Marcar Pagado</button>
+                        <button class="btn-ctrl btn-ctrl-revert" onclick="adminModalAccion('revertir')">🔄 Revertir Pago</button>
+                        <button class="btn-ctrl btn-ctrl-delete" onclick="adminModalAccion('eliminar')">✖ Liberar Boleto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LÓGICA DE CONTROL DEL ADMIN -->
+    <script>
+        // Sesión básica usando sessionStorage
+        if (sessionStorage.getItem('adminSesion') === 'activa') {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'flex';
+            bodyEstiloFlex(false);
+        }
+
+        function bodyEstiloFlex(centrado) {
+            document.body.style.alignItems = centrado ? 'center' : 'flex-start';
+        }
+
+        function procesarLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (user === 'admin' && pass === 'admin123') {
+                sessionStorage.setItem('adminSesion', 'activa');
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'flex';
+                bodyEstiloFlex(false);
+                aplicarConfiguracionPublica();
+                renderGanadores();
+            } else {
+                alert("Credenciales inválidas.");
+            }
+        }
+
+        function procesarLogout() {
+            sessionStorage.removeItem('adminSesion');
+            document.getElementById('loginBox').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+            bodyEstiloFlex(true);
+        }
+
+        // --- SISTEMA DE PESTAÑAS ---
+        function cambiarPestaña(tabId, btn) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // --- BASE DE DATOS Y AJUSTES COMPARTIDOS ---
+        const databaseBoletos = JSON.parse(localStorage.getItem('databaseBoletos')) || {
+            '863914': { name: 'MARCO ANTONIO NUÑEZ CABRERA', phone: '5512346237', state: 'Ciudad de México', status: 'pagado', date: '2026-04-20 22:59:40', proofImg: null },
+            '000112': { name: 'NORMA ALBA', phone: '4441580123', state: 'San Luis Potosí', status: 'pagado', date: '2026-04-19 14:15:10', proofImg: null },
+            '000452': { name: 'DANIEL HERNANDEZ', phone: '3315124152', state: 'Jalisco', status: 'apartado', date: '2026-04-21 09:30:00', proofImg: null }
+        };
+
+        function saveDatabase() {
+            localStorage.setItem('databaseBoletos', JSON.stringify(databaseBoletos));
+        }
+
+        const defaultSorteoConfig = {
+            date: "30 de Mayo",
+            price: 50,
+            prize1: "iPhone Último Modelo",
+            prize1_img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&auto=format&fit=crop&q=60",
+            prize2: "iPad Retina Display",
+            prize2_img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&auto=format&fit=crop&q=60",
+            prize3: "$5,000 MXN en Efectivo",
+            prize3_img: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?w=200&auto=format&fit=crop&q=60"
+        };
+
+        const defaultGanadores = [
+            { id: 1, name: "CARLOS ORTIZ", ticket: "000112", prize: "iPad Retina Display", img: "https://images.unsplash.com/photo-1597466765990-64ad1c35dafc?w=400&auto=format&fit=crop&q=60" },
+            { id: 2, name: "ALBERTO GÓMEZ", ticket: "000088", prize: "$5,000 en Efectivo", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop&q=60" },
+            { id: 3, name: "SANTIAGO RUIZ", ticket: "000452", prize: "iPhone Último Modelo", img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&auto=format&fit=crop&q=60" }
+        ];
+
+        let activeConfig = JSON.parse(localStorage.getItem('sorteoConfig')) || defaultSorteoConfig;
+        let activeGanadores = JSON.parse(localStorage.getItem('ganadoresList')) || defaultGanadores;
+
+        function aplicarConfiguracionPublica() {
+            document.getElementById('adminInputDate').value = activeConfig.date;
+            document.getElementById('adminInputPrice').value = activeConfig.price;
+            document.getElementById('adminInputPrize1').value = activeConfig.prize1;
+            document.getElementById('adminInputPrize1Img').value = activeConfig.prize1_img;
+            document.getElementById('adminInputPrize2').value = activeConfig.prize2;
+            document.getElementById('adminInputPrize2Img').value = activeConfig.prize2_img;
+            document.getElementById('adminInputPrize3').value = activeConfig.prize3;
+            document.getElementById('adminInputPrize3Img').value = activeConfig.prize3_img;
+        }
+
+        function renderGanadores() {
+            const deleteListContainer = document.getElementById('adminWinnerDeleteList');
+            deleteListContainer.innerHTML = '';
+
+            if (activeGanadores.length === 0) {
+                deleteListContainer.innerHTML = '<p style="color: #6b7280; font-size:0.8rem; padding: 15px;">Sin ganadores activos.</p>';
+                return;
+            }
+
+            activeGanadores.forEach(ganador => {
+                const deleteItem = document.createElement('div');
+                deleteItem.classList.add('winner-delete-item');
+                deleteItem.innerHTML = `
+                    <span><strong>${ganador.name}</strong> (Boleto #${ganador.ticket} - ${ganador.prize})</span>
+                    <button onclick="eliminarGanador(${ganador.id})" style="background-color: var(--color-rojo); color:white; border:none; padding: 4px 10px; border-radius:4px; cursor:pointer; font-weight: bold; font-size: 0.75rem;">Eliminar</button>
+                `;
+                deleteListContainer.appendChild(deleteItem);
+            });
+        }
+
+        function agregarGanadorLocal() {
+            const nombre = document.getElementById('adminWinnerName').value.trim();
+            const boleto = document.getElementById('adminWinnerTicket').value.trim().padStart(6, '0');
+            const premio = document.getElementById('adminWinnerPrize').value.trim();
+            const img = document.getElementById('adminWinnerImg').value.trim();
+
+            if (!nombre || !boleto || !premio) {
+                alert("Por favor completa los campos obligatorios.");
+                return;
+            }
+
+            const nuevoGanador = {
+                id: Date.now(),
+                name: nombre.toUpperCase(),
+                ticket: boleto,
+                prize: premio,
+                img: img
+            };
+
+            activeGanadores.push(nuevoGanador);
+            localStorage.setItem('ganadoresList', JSON.stringify(activeGanadores));
+            
+            document.getElementById('adminWinnerName').value = '';
+            document.getElementById('adminWinnerTicket').value = '';
+            document.getElementById('adminWinnerPrize').value = '';
+            document.getElementById('adminWinnerImg').value = '';
+
+            renderGanadores();
+            alert("Ganador registrado correctamente.");
+        }
+
+        function eliminarGanador(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar este ganador?")) {
+                activeGanadores = activeGanadores.filter(g => g.id !== id);
+                localStorage.setItem('ganadoresList', JSON.stringify(activeGanadores));
+                renderGanadores();
+            }
+        }
+
+        function guardarConfigSorteo() {
+            const nuevaFecha = document.getElementById('adminInputDate').value.trim();
+            const nuevoPrecio = parseInt(document.getElementById('adminInputPrice').value);
+            const nuevoPrize1 = document.getElementById('adminInputPrize1').value.trim();
+            const nuevoPrize1Img = document.getElementById('adminInputPrize1Img').value.trim();
+            const nuevoPrize2 = document.getElementById('adminInputPrize2').value.trim();
+            const nuevoPrize2Img = document.getElementById('adminInputPrize2Img').value.trim();
+            const nuevoPrize3 = document.getElementById('adminInputPrize3').value.trim();
+            const nuevoPrize3Img = document.getElementById('adminInputPrize3Img').value.trim();
+
+            if (isNaN(nuevoPrecio) || nuevoPrecio <= 0) {
+                alert("Introduce un precio válido.");
+                return;
+            }
+
+            activeConfig = {
+                date: nuevaFecha,
+                price: nuevoPrecio,
+                prize1: nuevoPrize1,
+                prize1_img: nuevoPrize1Img,
+                prize2: nuevoPrize2,
+                prize2_img: nuevoPrize2Img,
+                prize3: nuevoPrize3,
+                prize3_img: nuevoPrize3Img
+            };
+
+            localStorage.setItem('sorteoConfig', JSON.stringify(activeConfig));
+            alert("Configuración de sorteo guardada.");
+        }
+
+        function exportarBaseDatosACSV() {
+            const mesSorteo = document.getElementById('adminReportMonth').value;
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; 
+            csvContent += "Boleto,Nombre Comprador,WhatsApp,Estado,Estatus Pago,Fecha Apartado\r\n";
+
+            let registrosEncontrados = 0;
+            for (const ticket in databaseBoletos) {
+                const info = databaseBoletos[ticket];
+                const fila = `"${ticket}","${info.name}","${info.phone}","${info.state}","${info.status.toUpperCase()}","${info.date}"\r\n`;
+                csvContent += fila;
+                registrosEncontrados++;
+            }
+
+            if (registrosEncontrados === 0) {
+                alert("No hay boletos apartados ni vendidos para exportar en este momento.");
+                return;
+            }
+
+            const encodedUri = encodeURI(csvContent);
+            const downloadLink = document.createElement("a");
+            downloadLink.setAttribute("href", encodedUri);
+            downloadLink.setAttribute("download", `Reporte_Sorteo_LuchaMX_${mesSorteo}.csv`);
+            document.body.appendChild(downloadLink);
+            downloadLink.click(); 
+            document.body.removeChild(downloadLink); 
+        }
+
+        // --- BUSCADOR DE BOLETOS ADMINISTRATIVO ---
+        let boletoAdminBuscadoNum = null;
+
+        function buscarBoletoAdminModal() {
+            const ticketId = document.getElementById('adminModalSearchInput').value.trim().padStart(6, '0');
+            const data = databaseBoletos[ticketId];
+            const resultsCard = document.getElementById('adminModalResults');
+
+            if (data) {
+                boletoAdminBuscadoNum = ticketId;
+                document.getElementById('adminResFolio').textContent = `#${ticketId}`;
+                document.getElementById('adminResName').textContent = data.name;
+                document.getElementById('adminResPhone').textContent = data.phone;
+                document.getElementById('adminResDate').textContent = data.date;
+
+                const statusBadge = document.getElementById('adminResStatus');
+                statusBadge.textContent = data.status.toUpperCase();
+                statusBadge.className = `badge-status ${data.status}`;
+
+                const compText = document.getElementById('adminResComprobante');
+                if (data.proofImg) {
+                    compText.innerHTML = `<button onclick="verComprobanteAdmin('${data.proofImg}')" style="background-color:var(--color-verde-bright); color:white; border:none; padding:6px 10px; border-radius:4px; cursor:pointer; font-size:0.75rem; font-weight:bold; font-family: 'Montserrat', sans-serif;">👁️ Ver Comprobante</button>`;
+                } else {
+                    compText.textContent = '❌ Sin archivo';
+                    compText.style.color = '#f43f5e';
+                }
+
+                resultsCard.style.display = "block";
+            } else {
+                resultsCard.style.display = "none";
+                alert('No se encontraron registros de apartado para este número.');
+            }
+        }
+
+        function verComprobanteAdmin(base64) {
+            const nuevaVentana = window.open();
+            nuevaVentana.document.write(`
+                <body style="background:#000; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
+                    <img src="${base64}" style="max-width:90%; max-height:90%; border: 3px solid #f59e0b; border-radius:8px;" title="Comprobante de Pago">
+                </body>
+            `);
+        }
+
+        function adminModalAccion(tipo) {
+            if (!boletoAdminBuscadoNum || !databaseBoletos[boletoAdminBuscadoNum]) return;
+
+            if (tipo === 'pagar') {
+                databaseBoletos[boletoAdminBuscadoNum].status = 'pagado';
+                alert(`Boleto #${boletoAdminBuscadoNum} aprobado y marcado como PAGADO.`);
+            } else if (tipo === 'revertir') {
+                databaseBoletos[boletoAdminBuscadoNum].status = 'apartado';
+                alert(`Pago revertido del boleto #${boletoAdminBuscadoNum}. Estado actual: APARTADO.`);
+            } else if (tipo === 'eliminar') {
+                if (confirm("¿Seguro que deseas liberar este boleto? Dejará de estar apartado.")) {
+                    delete databaseBoletos[boletoAdminBuscadoNum];
+                    alert(`Se ha liberado el boleto #${boletoAdminBuscadoNum}. Vuelve a estar disponible.`);
+                    document.getElementById('adminModalResults').style.display = "none";
+                } else {
+                    return;
+                }
+            }
+
+            saveDatabase();
+            buscarBoletoAdminModal();
+        }
+
+        function simularEnvioWhatsApp() {
+            if (!boletoAdminBuscadoNum) return;
+            const data = databaseBoletos[boletoAdminBuscadoNum];
+            alert(`Simulando envío de boletos por WhatsApp para:\n\nComprador: ${data.name}\nWhatsApp: ${data.phone}\nBoleto: #${boletoAdminBuscadoNum}`);
+        }
+
+        function procesarArchivoImagen(inputElement, targetInputId) {
+            const archivo = inputElement.files[0];
+            if (archivo) {
+                if (archivo.size > 1024 * 1024) {
+                    alert("Aviso: Esta imagen es algo grande. Se recomienda usar imágenes comprimidas de menos de 1 MB para no saturar el almacenamiento del navegador.");
+                }
+                const lector = new FileReader();
+                lector.onload = function(e) {
+                    document.getElementById(targetInputId).value = e.target.result;
+                };
+                lector.readAsDataURL(archivo);
+            }
+        }
+
+        // Listener para sincronización con storage (por si el usuario compra boletos en index.html)
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'databaseBoletos') {
+                Object.assign(databaseBoletos, JSON.parse(e.newValue));
+                if (boletoAdminBuscadoNum) buscarBoletoAdminModal();
+            }
+        });
+
+        aplicarConfiguracionPublica();
+        renderGanadores();
+    </script>
+</body>
+</html>
