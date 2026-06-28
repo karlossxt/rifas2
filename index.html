@@ -36,8 +36,8 @@
             background-repeat: repeat;
             color: var(--color-texto-claro);
             line-height: 1.6;
-            padding: 40px; /* Espacio extra para el marco decorativo */
-            padding-top: 50px;
+            padding: 40px; 
+            padding-top: 60px; /* Espacio para el marco y la línea verde */
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -188,7 +188,7 @@
 
         @keyframes pulse-dot {
             0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(0.8); opacity: 0.6; }
+            50% { transform: scale(0.8); opacity: 0.5; }
         }
 
         .actions-grid { display: flex; flex-direction: column; gap: 12px; max-width: 600px; margin: 0 auto; }
@@ -377,7 +377,7 @@
         
         .progress-fill { background: linear-gradient(90deg, var(--color-verde), var(--color-verde-brillante)); height: 100%; width: 65%; }
 
-        /* --- SECCIÓN GANADORES RECIENTES --- */
+        /* --- SECCIÓN GANADORES RECIENTES (REDISTRIBUIDO, CENTRADO Y DE 3 COLUMNAS SIMÉTRICAS) --- */
         .ganadores-section {
             background-color: var(--color-fondo-card);
             border: 1px solid var(--color-borde);
@@ -904,31 +904,66 @@
             .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
-        /* MARCO ESTILO CARTELERA VINTAGE (DE TU NUEVA IMAGEN) */
-        .lucha-frame {
+        /* MARCO ESTILO CARTELERA VINTAGE - DISTRIBUCIÓN HORIZONTAL (90deg) (V1.1 OPTIMIZADO) */
+        .frame-top,
+        .frame-bottom {
+            height: 20px;
             position: fixed;
-            inset: 0;
-            pointer-events: none;
+            left: 0;
+            right: 0;
             z-index: 9999;
-            border: 16px solid transparent;
-            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 6 L16 26 M6 16 L26 16' stroke='rgba(255,255,255,0.22)' stroke-width='1.5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E") 16 repeat;
+            pointer-events: none;
+            /* SVG optimizado utilizando <defs> y <use> con estrella con rombo central y rayados sutiles */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='20'%3E%3Cdefs%3E%3Cg id='sparkle'%3E%3Cline x1='27' y1='7' x2='33' y2='13' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='33' y1='7' x2='27' y2='13' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='30' y1='2' x2='30' y2='18' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cline x1='22' y1='10' x2='38' y2='10' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cpath d='M30 4L31 9 L36 10L31 11L30 16L29 11L24 10L29 9Z' fill='%23ffffff'/%3E%3C/g%3E%3C/defs%3E%3Cstyle%3E@keyframes blink%7B0%25,100%25%7Bopacity:0.35%3B%7D50%25%7Bopacity:1%3B%7D%7D.st1%7Banimation:blink 4s infinite ease-in-out%3B%7D.st2%7Banimation:blink 5.5s infinite ease-in-out%3B%7D.st3%7Banimation:blink 4.8s infinite ease-in-out%3B%7D.st4%7Banimation:blink 6.2s infinite ease-in-out%3B%7D%3C/style%3E%3Cline x1='0' y1='10' x2='300' y2='10' stroke='%238e8e8e' stroke-width='0.5' opacity='0.3'/%3E%3Cuse href='%23sparkle' class='st1' x='0' y='0'/%3E%3Cuse href='%23sparkle' class='st2' x='60' y='0'/%3E%3Cuse href='%23sparkle' class='st3' x='120' y='0'/%3E%3Cuse href='%23sparkle' class='st4' x='180' y='0'/%3E%3Cg opacity='0.25' transform='translate(270, 10)'%3E%3Ccircle cx='-2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='0' cy='1.5' r='2.2' fill='%23059669'/%3E%3Cpath d='M0,1.5 Q1,4 3,5' stroke='%23059669' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            transition: filter 0.3s ease-in-out;
         }
 
+        .frame-top { top: 0; }
+        .frame-bottom { bottom: 0; }
+
+        /* MARCO ESTILO CARTELERA VINTAGE - DISTRIBUCIÓN VERTICAL (0deg) (V1.1 OPTIMIZADO) */
+        .frame-left,
+        .frame-right {
+            width: 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            z-index: 9999;
+            pointer-events: none;
+            /* SVG vertical optimizado que reduce su longitud considerablemente */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='300'%3E%3Cdefs%3E%3Cg id='sparkle-v'%3E%3Cline x1='7' y1='27' x2='13' y2='33' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='13' y1='27' x2='7' y2='33' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='10' y1='22' x2='10' y2='38' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cline x1='2' y1='30' x2='18' y2='30' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cpath d='M10 24L11 29L16 30L11 31L10 36L9 31L4 30L9 29Z' fill='%23ffffff'/%3E%3C/g%3E%3C/defs%3E%3Cstyle%3E@keyframes blink%7B0%25,100%25%7Bopacity:0.35%3B%7D50%25%7Bopacity:1%3B%7D%7D.st1%7Banimation:blink 5.5s infinite ease-in-out%3B%7D.st2%7Banimation:blink 7.5s infinite ease-in-out%3B%7D.st3%7Banimation:blink 6.5s infinite ease-in-out%3B%7D.st4%7Banimation:blink 8.5s infinite ease-in-out%3B%7D%3C/style%3E%3Cline x1='10' y1='0' x2='10' y2='300' stroke='%238e8e8e' stroke-width='0.5' opacity='0.3'/%3E%3Cuse href='%23sparkle-v' class='st1' x='0' y='0'/%3E%3Cuse href='%23sparkle-v' class='st2' x='0' y='60'/%3E%3Cuse href='%23sparkle-v' class='st3' x='0' y='120'/%3E%3Cuse href='%23sparkle-v' class='st4' x='0' y='180'/%3E%3Cg opacity='0.25' transform='translate(10, 270)'%3E%3Ccircle cx='-2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='0' cy='1.5' r='2.2' fill='%23059669'/%3E%3Cpath d='M0,1.5 Q1,4 3,5' stroke='%23059669' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: repeat-y;
+            transition: filter 0.3s ease-in-out;
+        }
+
+        .frame-left { left: 0; }
+        .frame-right { right: 0; }
+
+        /* LÍNEA DE DETALLE VERDE INFERIOR (DEBAJO DE MARCO SUPERIOR DE 20PX) */
         .lucha-top-line {
             position: fixed;
-            top: 16px;
-            left: 16px;
-            right: 16px;
+            top: 20px;
+            left: 20px;
+            right: 20px;
             height: 2px;
             background-color: #006847;
             z-index: 9998;
             pointer-events: none;
         }
+
+        /* Brillo interactivo al comprar o entrar a checkout (Cherry on top) */
+        .frame-flash {
+            filter: brightness(2.2) drop-shadow(0 0 12px var(--color-amarillo)) drop-shadow(0 0 6px #ffffff) !important;
+        }
     </style>
 </head>
 <body>
-    <!-- MARCO DECORATIVO INTEGRADO (DE TU NUEVA IMAGEN) -->
-    <div class="lucha-frame"></div>
+    <!-- MARCO DECORATIVO DE ESTRELLAS Y TRÉBOLES CON VECTORES SVG Twinkling (FUSIONADO V1.1) -->
+    <div class="frame-top"></div>
+    <div class="frame-bottom"></div>
+    <div class="frame-left"></div>
+    <div class="frame-right"></div>
     <div class="lucha-top-line"></div>
     
     <!-- MENÚ DE NAVEGACIÓN -->
@@ -964,10 +999,10 @@
 
             <h1 class="main-title">Tres ganadores, tres caídas… ¡Más oportunidades de ganar!</h1>
             <p class="subtitle">
-                Súbete al cuadrilátero y prueba tu suerte.
+                Súbete al cuadrilátero y prueba tu suerte. ¡Rifas completamente en vivo!
             </p>
 
-            <!-- NUEVO BOTÓN DE EN VIVO (CON FORMATO NEÓN ROJO DE SEGUNDA IMAGEN) -->
+            <!-- BOTÓN DE EN VIVO CON FORMATO DE TU SEGUNDA IMAGEN -->
             <div style="display: flex; justify-content: center;">
                 <div class="btn-live-glow">
                     <span class="live-dot"></span>
@@ -1052,7 +1087,7 @@
             </div>
         </section>
 
-        <!-- SECCIÓN DE GANADORES RECIENTES (REDISTRIBUIDO Y CENTRADO) -->
+        <!-- SECCIÓN DE GANADORES RECIENTES (REDISTRIBUIDO, CENTRADO Y DE 3 COLUMNAS SIMÉTRICAS) -->
         <section class="ganadores-section">
             <div class="section-header-lucha">
                 <h3>Ganadores Anteriores</h3>
@@ -1500,7 +1535,7 @@
                 </a>
                 <a href="https://instagram.com" class="social-icon-link" target="_blank" aria-label="Instagram">
                     <svg viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07;"/>
                     </svg>
                 </a>
                 <a href="https://tiktok.com" class="social-icon-link" target="_blank" aria-label="TikTok">
@@ -1566,7 +1601,7 @@
         const defaultGanadores = [
             { id: 1, name: "CARLOS ORTIZ", ticket: "000112", prize: "iPad Retina Display", img: "https://images.unsplash.com/photo-1597466765990-64ad1c35dafc?w=400&auto=format&fit=crop&q=60" },
             { id: 2, name: "ALBERTO GÓMEZ", ticket: "000088", prize: "$5,000 en Efectivo", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop&q=60" },
-            { id: 3, name: "SANTIAGO RUIZ", ticket: "000452", prize: "iPhone Último Modelo", img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&auto=format&fit=crop&q=60" }
+            { id: 3, name: "SANTIAGO RUIZ", ticket: "000452", prize: "iPhone Último Modelo", img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&auto=format&fit=crop&q=60" }
         ];
 
         let activeConfig = JSON.parse(localStorage.getItem('sorteoConfig')) || defaultSorteoConfig;
@@ -1779,6 +1814,15 @@
             });
         }
 
+        // Función para detonar un destello neón en el marco durante 0.5 segundos (Cherry on top)
+        function triggerFrameFlash() {
+            const frames = document.querySelectorAll('.frame-top, .frame-bottom, .frame-left, .frame-right');
+            frames.forEach(f => f.classList.add('frame-flash'));
+            setTimeout(() => {
+                frames.forEach(f => f.classList.remove('frame-flash'));
+            }, 500);
+        }
+
         function toggleSelectTicket(num, element) {
             if (databaseBoletos[num] && databaseBoletos[num].status === 'pagado') return;
 
@@ -1788,6 +1832,7 @@
             } else {
                 selectedTickets.add(num);
                 element.classList.add('selected');
+                triggerFrameFlash(); // Destello interactivo al seleccionar
             }
             updateSummary();
         }
@@ -1808,6 +1853,9 @@
                     agregados++;
                 }
                 intentos++;
+            }
+            if (agregados > 0) {
+                triggerFrameFlash(); // Destello interactivo al generar al azar
             }
             updateSummary();
         }
@@ -1853,6 +1901,7 @@
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 el.style.transform = "scale(1.2)";
                 setTimeout(() => el.style.transform = "scale(1)", 500);
+                triggerFrameFlash(); // Destello interactivo al encontrar un boleto buscado
             }
         }
 
@@ -1905,6 +1954,7 @@
                 });
 
                 saveDatabase();
+                triggerFrameFlash(); // Destello interactivo al procesar checkout exitosamente
 
                 // Llenar datos en el Modal de éxito
                 document.getElementById('successBuyerName').textContent = name.toUpperCase();
