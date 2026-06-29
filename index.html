@@ -27,30 +27,27 @@
             background-color: var(--color-fondo);
             /* PATRÓN ALTERNADO: Máscara Verde y Trébol Rojo */
             background-image: 
-                /* Figura 1: Máscara */
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M30 25 C20 25 15 33 15 45 C15 57 20 63 30 65 C40 63 45 57 45 45 C45 33 40 25 30 25 Z M25 40 Q27 37 30 40 M35 40 Q33 37 30 40' fill='none' stroke='rgba(0, 104, 71, 0.15)' stroke-width='1.5'/%3E%3C/svg%3E"),
-                /* Figura 2: Trébol (desfasado para alternar) */
                 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='80' y='80' fill='rgba(217, 29, 42, 0.15)' font-size='20' text-anchor='middle'%3E🍀%3C/text%3E%3C/svg%3E");
-            
             background-position: 0 0, 0 0;
             background-repeat: repeat;
             color: var(--color-texto-claro);
             line-height: 1.6;
             padding: 40px; 
-            padding-top: 60px; /* Espacio para el marco y la línea verde */
+            padding-top: 60px;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* --- NAVEGACIÓN --- */
+/* --- NAVEGACIÓN --- */
         header {
-            background-color: rgba(5, 5, 8, 0.95);
+            background-color: #050508; /* <-- Cambiamos el 'rgba' a este color sólido oscuro */
             border-bottom: 3px solid var(--color-verde);
             position: sticky;
             top: 0;
             z-index: 1000;
             padding: 12px 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8); /* Opcional: oscurecí un poco la sombra para que resalte más */
         }
 
         .nav-container {
@@ -71,12 +68,20 @@
             letter-spacing: 1px;
         }
 
-        .nav-links { display: flex; gap: 15px; align-items: center; }
+        /* 1. MENÚ CENTRADO */
+        .nav-links { 
+            display: flex; 
+            gap: 20px; /* Un poco más de separación entre botones */
+            align-items: center; 
+            flex: 1; /* Permite que el menú tome el espacio restante */
+            justify-content: center; /* Centra los links */
+        }
 
+        /* 2. FUENTES MÁS GRANDES */
         .nav-links a, .nav-links button {
             color: var(--color-texto-claro);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 1rem; /* CAMBIO: Antes estaba en 0.8rem, ahora es más grande */
             font-weight: 700;
             text-transform: uppercase;
             padding: 8px 12px;
@@ -93,8 +98,27 @@
             background-color: var(--color-verde);
         }
 
-        .btn-menu-admin { border: 1px solid var(--color-amarillo) !important; color: var(--color-amarillo) !important; }
+        /* 3. BOTÓN DE SORTEO VIGENTE RESALTADO */
+        .nav-links a.highlight-nav {
+            background-color: var(--color-rojo);
+            color: #ffffff;
+            border: 2px solid var(--color-rojo);
+            border-radius: 6px;
+            padding: 8px 16px;
+            box-shadow: 0 4px 15px rgba(217, 29, 42, 0.4);
+        }
 
+        .nav-links a.highlight-nav:hover {
+            background-color: #ff1a2b; /* Rojo más brillante al pasar el mouse */
+            border-color: #ff1a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 29, 42, 0.6);
+        }
+        }
+/* Ajuste para que el menú superior no tape los títulos al hacer scroll */
+        section {
+            scroll-margin-top: 90px;
+        }
         /* --- SECCIÓN HÉROE --- */
         .hero-section { text-align: center; padding: 40px 20px; max-width: 950px; margin: 0 auto; }
 
@@ -154,7 +178,7 @@
             line-height: 1.5;
         }
 
-        /* --- BOTÓN DE EN VIVO CON NEÓN ROJO (ESTILO SEGUNDA IMAGEN) --- */
+        /* --- BOTÓN DE EN VIVO --- */
         .btn-live-glow {
             background-color: var(--color-rojo);
             color: #ffffff;
@@ -377,7 +401,88 @@
         
         .progress-fill { background: linear-gradient(90deg, var(--color-verde), var(--color-verde-brillante)); height: 100%; width: 65%; }
 
-        /* --- SECCIÓN GANADORES RECIENTES (REDISTRIBUIDO, CENTRADO Y DE 3 COLUMNAS SIMÉTRICAS) --- */
+        /* --- MECÁNICA DE PREMIACIÓN (CÓMO GANAR) --- */
+        .mecanica-section {
+            background-color: var(--color-fondo-card);
+            border: 2px solid var(--color-borde);
+            border-radius: 12px;
+            padding: 40px 30px;
+            margin-bottom: 45px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .mecanica-intro {
+            text-align: center;
+            color: var(--color-texto-claro);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .mecanica-imagen {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 35px;
+        }
+
+        .mecanica-imagen img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid var(--color-borde);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .mecanica-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mecanica-regla {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: #050508;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--color-borde);
+            border-left: 6px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .mecanica-regla:hover {
+            transform: scale(1.02);
+        }
+
+        /* Colores inspirados en la imagen */
+        .regla-roja { border-left-color: #ff0000; box-shadow: 0 4px 15px rgba(255, 0, 0, 0.1); }
+        .regla-azul { border-left-color: #00bfff; box-shadow: 0 4px 15px rgba(0, 191, 255, 0.1); }
+        .regla-amarilla { border-left-color: #ffff00; box-shadow: 0 4px 15px rgba(255, 255, 0, 0.1); }
+
+        .mecanica-medalla {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+        }
+
+        .mecanica-texto {
+            font-size: 1.1rem;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .texto-rojo { color: #ff3333; }
+        .texto-azul { color: #33ccff; }
+        .texto-amarillo { color: #ffff33; }
+
+        .mecanica-texto span {
+            text-decoration: underline;
+            font-style: italic;
+        }
+
+        /* --- SECCIÓN GANADORES RECIENTES --- */
         .ganadores-section {
             background-color: var(--color-fondo-card);
             border: 1px solid var(--color-borde);
@@ -387,7 +492,6 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* GRID GANADORES REDISEÑADO CON ALINEACIÓN CENTRADA */
         .ganadores-grid { 
             display: flex; 
             justify-content: center; 
@@ -406,7 +510,7 @@
             display: flex;
             flex-direction: column;
             transition: border-color 0.2s, box-shadow 0.2s;
-            width: 300px; /* Ancho fijo para alineación perfecta */
+            width: 300px; 
             flex-shrink: 0;
         }
 
@@ -440,16 +544,7 @@
         }
 
         .ganador-info { padding: 20px 15px; }
-
-        .ganador-nombre {
-            font-size: 1.05rem;
-            font-weight: 900;
-            color: #ffffff;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
+        .ganador-nombre { font-size: 1.05rem; font-weight: 900; color: #ffffff; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
         .ganador-premio { color: var(--color-amarillo); font-weight: 700; font-size: 0.85rem; }
         .ganador-boleto { font-size: 0.8rem; color: var(--color-texto-mutado); margin-top: 8px; }
 
@@ -462,7 +557,6 @@
             margin-bottom: 45px;
         }
 
-        /* BANNER DE REGLAS DE SELECCIÓN SUPERIOR */
         .ticket-info-banner {
             background-color: #000000;
             border: 1.5px solid var(--color-borde);
@@ -479,7 +573,6 @@
         .ticket-info-banner p:last-child { margin-bottom: 0; }
         .ticket-info-banner .highlight { color: var(--color-amarillo); font-weight: 900; text-transform: uppercase; }
 
-        /* CONTROLES DE ADQUISICIÓN UNIFICADOS (BÚSQUEDA Y SELECTOR DE AZAR) */
         .ticket-controls-row { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-bottom: 25px; }
 
         .control-box-item {
@@ -538,10 +631,9 @@
         .btn-clear-control { background-color: #2a3444; color: #ffffff; }
         .btn-clear-control:hover { background-color: var(--color-rojo); }
 
-        /* CUADRÍCULA DE BOLETOS AJUSTADA EXCLUSIVAMENTE CON 14 COLUMNAS DESDE BREAKPOINT 992PX */
         .boletos-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 Columnas para smartphones */
+            grid-template-columns: repeat(4, 1fr); 
             gap: 6px;
             max-height: 480px; 
             overflow-y: auto;
@@ -552,23 +644,17 @@
             margin-bottom: 30px;
         }
 
-        @media(min-width: 576px) {
-            .boletos-grid {
-                grid-template-columns: repeat(7, 1fr); /* 7 Columnas para tablets */
-            }
-        }
-
+        @media(min-width: 576px) { .boletos-grid { grid-template-columns: repeat(7, 1fr); } }
         @media(min-width: 992px) {
             .boletos-grid {
-                grid-template-columns: repeat(14, 1fr) !important; /* 14 Columnas garantizadas en laptops y PC */
-                grid-template-rows: repeat(14, auto); /* Asegura 14 filas de alto */
-                max-height: none; /* Quitamos el scroll vertical en escritorio para mostrar la cuadrícula completa */
+                grid-template-columns: repeat(14, 1fr) !important;
+                grid-template-rows: repeat(14, auto);
+                max-height: none; 
                 gap: 8px;
                 padding: 20px;
             }
         }
 
-        /* DYNAMIC LEGEND ELEMENTS */
         .legend-row {
             display: flex;
             justify-content: center;
@@ -580,23 +666,12 @@
             font-weight: bold;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .color-box {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-        }
-
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .color-box { width: 16px; height: 16px; border-radius: 4px; }
         .box-available { background-color: #2a3444; border: 1px dashed rgba(255,255,255,0.15); }
         .box-selected { background-color: var(--color-rojo); display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; }
         .box-sold { background-color: #121215; }
 
-        /* Boleto de 6 dígitos con formato anti-desbordamiento */
         .boleto-item {
             background-color: #2a3444;
             color: #ffffff;
@@ -620,32 +695,28 @@
         }
         .boleto-item::before { left: -4px; }
         .boleto-item::after { right: -4px; }
-
         .boleto-item:active { transform: scale(0.95); }
 
         .boleto-item.sold {
             background-color: #121215; color: rgba(255,255,255,0.15); cursor: not-allowed; pointer-events: none; border-color: transparent; box-shadow: none;
         }
 
-        /* Estilo cuando el boleto está seleccionado */
         .boleto-item.selected {
             background-color: var(--color-rojo) !important;
-            color: transparent !important; /* Oculta el número */
+            color: transparent !important; 
             border-color: #ffffff;
             box-shadow: 0 0 15px rgba(217, 29, 42, 0.6);
             position: relative;
         }
 
-        /* Insertar el trébol en el centro */
         .boleto-item.selected::after {
-            content: '🍀'; /* Puedes cambiarlo por ⭐ o 🎫 */
+            content: '🍀'; 
             color: white;
             font-size: 1.1rem;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            /* Hacemos que el trébol sí sea visible aunque el color del padre sea transparente */
             text-shadow: none; 
         }
 
@@ -653,7 +724,6 @@
 
         /* --- FORMULARIOS --- */
         .checkout-form { display: grid; grid-template-columns: 1fr; gap: 20px; }
-
         @media(min-width: 768px) { .checkout-form { grid-template-columns: 1fr 1fr; } }
 
         .input-group label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--color-texto-mutado); letter-spacing: 0.5px; }
@@ -681,94 +751,7 @@
         }
 
         .btn-submit:hover:not(:disabled) { background-color: var(--color-verde-brillante); transform: translateY(-2px); }
-
         .btn-submit:disabled { background-color: #334155; cursor: not-allowed; color: #94a3b8; border-color: #475569; box-shadow: none; }
-
-        /* --- MODAL ADMINISTRADOR --- */
-        .modal-admin-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); display: flex; justify-content: center; align-items: center; z-index: 3000; visibility: hidden; opacity: 0; transition: visibility 0s, opacity 0.2s; padding: 15px;
-        }
-
-        .modal-admin-overlay.active { visibility: visible; opacity: 1; }
-
-        .admin-modal {
-            background-color: #f3f4f6; color: #111827; width: 100%; max-width: 650px; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex; flex-direction: column; max-height: 95vh;
-        }
-
-        .admin-modal-header {
-            background-color: #1e1e24; color: #ffffff; padding: 18px 20px; text-align: center; font-family: 'Impact', sans-serif; font-size: 1.5rem; letter-spacing: 1.5px; position: relative;
-        }
-
-        .admin-modal-close {
-            position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #ffffff; font-size: 1.8rem; cursor: pointer;
-        }
-
-        .admin-modal-body { padding: 25px; overflow-y: auto; }
-
-        .admin-card-section {
-            background-color: #ffffff; border-radius: 8px; border: 1px solid #e5e7eb; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.033);
-        }
-
-        .admin-card-title {
-            font-size: 1.1rem; font-weight: 900; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: #111827; text-transform: uppercase; letter-spacing: 0.5px;
-        }
-
-        .admin-search-form { display: flex; gap: 10px; margin-top: 15px; }
-
-        .admin-input-txt {
-            flex: 1; padding: 12px 15px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 0.95rem; background-color: #ffffff; color: #111827;
-        }
-
-        .admin-edit-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
-
-        @media(min-width: 768px) { .admin-edit-grid { grid-template-columns: 1fr 1fr; } }
-
-        .admin-form-group { display: flex; flex-direction: column; gap: 4px; }
-        .admin-form-group label { font-size: 0.75rem; font-weight: 700; color: #4b5563; text-transform: uppercase; }
-        .admin-form-group input { padding: 10px 12px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 0.9rem; }
-
-        .admin-btn-blue {
-            background-color: #2563eb; color: #ffffff; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; transition: background 0.15s;
-        }
-
-        .admin-btn-blue:hover { background-color: #1d4ed8; }
-
-        .admin-btn-gray {
-            background-color: #6b7280; color: #ffffff; border: none; padding: 12px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.85rem;
-        }
-
-        .admin-report-box { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
-
-        .admin-results-card {
-            background-color: #ffffff; border-radius: 8px; border: 1px solid #e5e7eb; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: none;
-        }
-
-        .results-ticket-head {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #f3f4f6; padding-bottom: 10px;
-        }
-
-        .badge-folio { background-color: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 4px; font-weight: 900; font-size: 0.95rem; }
-
-        .badge-estado-actual { padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; }
-        .badge-estado-actual.pagado { background-color: #10b981; color: #ffffff; }
-        .badge-estado-actual.apartado { background-color: #f59e0b; color: #ffffff; }
-
-        .results-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f3f4f6; font-size: 0.85rem; }
-        .results-row span { color: #4b5563; font-weight: 700; }
-        .results-row strong { color: #111827; text-align: right; }
-
-        .admin-buttons-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; justify-content: center; }
-
-        .btn-panel-action {
-            padding: 10px 14px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; border: none; cursor: pointer; color: #ffffff; display: flex; align-items: center; gap: 4px; text-transform: uppercase;
-        }
-
-        .btn-panel-send { background-color: #25d366; } 
-        .btn-panel-pay { background-color: #a30021; }  
-        .btn-panel-edit { background-color: #d97706; } 
-        .btn-panel-tickets { background-color: #6366f1; } 
-        .btn-panel-revert { background-color: #f59e0b; } 
-        .btn-panel-delete { background-color: #f43f5e; } 
 
         /* --- MODAL "MÉTODOS DE PAGO" --- */
         .modal-overlay {
@@ -789,114 +772,53 @@
 
         .bank-item { border-bottom: 1px dashed #e2e8f0; padding: 15px 0; cursor: pointer; transition: background-color 0.2s; }
         .bank-item:hover { background-color: #f8fafc; }
-
         .bank-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; margin-bottom: 5px; }
         .bank-logo-placeholder { width: 32px; height: 18px; background-color: var(--color-rojo); border-radius: 3px; }
         .bank-card-number { font-family: 'Courier New', Courier, monospace; font-size: 1.15rem; font-weight: 900; letter-spacing: 2px; margin-top: 5px; }
         .copy-hint { text-align: center; font-size: 0.8rem; color: var(--color-texto-mutado); background-color: #fdf2f8; color: #db2777; padding: 8px; border-radius: 6px; margin-top: 15px; font-weight: 700; }
 
-        /* --- PREGUNTAS FRECUENTES (REDISEÑO DE ALTO IMPACTO) --- */
-        .faq-section {
-            background-color: var(--color-fondo-card); border-radius: 12px; padding: 40px 30px; border: 2px solid var(--color-borde); box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
+        /* --- PREGUNTAS FRECUENTES --- */
+        .faq-section { background-color: var(--color-fondo-card); border-radius: 12px; padding: 40px 30px; border: 2px solid var(--color-borde); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
         .faq-item { border-bottom: 1px solid var(--color-borde); padding: 20px 0; transition: all 0.3s ease; }
         .faq-item:last-child { border-bottom: none; }
-
-        .faq-question {
-            font-weight: 700; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #ffffff; user-select: none; transition: color 0.2s ease;
-        }
-
+        .faq-question { font-weight: 700; font-size: 1.05rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #ffffff; user-select: none; transition: color 0.2s ease; }
         .faq-question:hover { color: var(--color-amarillo); }
         .faq-question span { color: var(--color-amarillo); font-size: 0.8rem; display: inline-block; transition: transform 0.3s ease; }
+        .faq-answer { margin-top: 12px; font-size: 0.9rem; color: var(--color-texto-mutado); line-height: 1.6; display: none; padding-right: 20px; border-left: 3px solid var(--color-rojo); padding-left: 15px; }
 
-        .faq-answer {
-            margin-top: 12px; font-size: 0.9rem; color: var(--color-texto-mutado); line-height: 1.6; display: none; padding-right: 20px; border-left: 3px solid var(--color-rojo); padding-left: 15px;
-        }
-
-        /* --- PIE DE PÁGINA REDISEÑADO CON ESTRUCTURA CENTRADA --- */
+        /* --- PIE DE PÁGINA --- */
         footer { background-color: #07070a; border-top: 3px solid var(--color-verde); padding: 40px 20px; text-align: center; margin-top: 60px; position: relative; z-index: 10; }
-
         .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-
         .footer-logo { font-family: 'Impact', sans-serif; font-size: 1.5rem; color: var(--color-rojo); text-shadow: 1px 1px 0px; text-decoration: none; letter-spacing: 1px; margin-bottom: 5px; }
-
         .footer-socials { display: flex; justify-content: center; gap: 25px; margin: 10px 0; }
-
-        .social-icon-link {
-            color: var(--color-texto-mutado); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-borde); border-radius: 50%; width: 46px; height: 46px;
-        }
-
-        .social-icon-link:hover {
-            color: #ffffff; background-color: var(--color-verde); border-color: var(--color-verde-brillante); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
-        }
-
+        .social-icon-link { color: var(--color-texto-mutado); transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--color-borde); border-radius: 50%; width: 46px; height: 46px; }
+        .social-icon-link:hover { color: #ffffff; background-color: var(--color-verde); border-color: var(--color-verde-brillante); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
         .social-icon-link svg { width: 20px; height: 20px; fill: currentColor; }
-
         .footer-contact-info { font-size: 0.9rem; color: var(--color-texto-mutado); max-width: 600px; line-height: 1.5; }
-
         .footer-contact-info a { color: var(--color-amarillo); text-decoration: none; font-weight: 700; transition: color 0.2s; border-bottom: 1px dashed var(--color-amarillo); }
         .footer-contact-info a:hover { color: #ffffff; border-bottom-style: solid; }
-
         .footer-bottom { width: 100%; border-top: 1px solid var(--color-borde); margin-top: 15px; padding-top: 20px; display: flex; flex-direction: column; gap: 10px; font-size: 0.75rem; color: var(--color-texto-mutado); }
-
         @media(min-width: 768px) { .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; } }
-
         .link-privacidad { color: var(--color-texto-mutado); text-decoration: none; font-weight: 700; transition: color 0.2s; cursor: pointer; }
         .link-privacidad:hover { color: var(--color-amarillo); text-decoration: underline; }
 
         /* --- ESTILOS DEL MODAL DE AVISO DE PRIVACIDAD --- */
-        .privacy-modal {
-            background-color: #0e0e12; color: #ffffff; border: 2px solid var(--color-borde); width: 100%; max-width: 600px; border-radius: 12px; padding: 30px; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-
+        .privacy-modal { background-color: #0e0e12; color: #ffffff; border: 2px solid var(--color-borde); width: 100%; max-width: 600px; border-radius: 12px; padding: 30px; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
         .modal-title-privacidad { font-family: 'Impact', sans-serif; font-size: 1.6rem; border-bottom: 2px solid var(--color-borde); padding-bottom: 12px; margin-bottom: 20px; text-align: center; color: var(--color-amarillo); letter-spacing: 0.5px; }
-
         .privacy-body { font-size: 0.85rem; line-height: 1.6; color: var(--color-texto-mutado); text-align: justify; }
-        .privacy-body p { margin-bottom: 15px; }
+        .privacy-body p, .privacy-body ul, .privacy-body ol { margin-bottom: 15px; }
         .privacy-body strong { color: #ffffff; }
-        .privacy-body ul, .privacy-body ol { margin-bottom: 15px; padding-left: 20px; }
+        .privacy-body ul, .privacy-body ol { padding-left: 20px; }
         .privacy-body li { margin-bottom: 5px; }
         .privacy-body a { color: var(--color-amarillo); text-decoration: none; }
         .privacy-body a:hover { text-decoration: underline; }
 
         /* --- MEJORAS MENÚ MÓVIL --- */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            z-index: 1100;
-        }
-
-        .menu-toggle .bar {
-            width: 25px;
-            height: 3px;
-            background-color: var(--color-texto-claro);
-            border-radius: 2px;
-            transition: 0.3s;
-        }
-
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; z-index: 1100; }
+        .menu-toggle .bar { width: 25px; height: 3px; background-color: var(--color-texto-claro); border-radius: 2px; transition: 0.3s; }
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
-
-            .nav-links {
-                position: fixed;
-                left: -100%;
-                top: 60px;
-                flex-direction: column;
-                background-color: rgba(5, 5, 8, 0.98);
-                width: 100%;
-                height: calc(100vh - 60px);
-                text-align: center;
-                transition: 0.3s;
-                padding-top: 40px;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.5);
-                border-top: 1px solid var(--color-verde);
-            }
-
+            .nav-links { position: fixed; left: -100%; top: 60px; flex-direction: column; background-color: rgba(5, 5, 8, 0.98); width: 100%; height: calc(100vh - 60px); text-align: center; transition: 0.3s; padding-top: 40px; box-shadow: 0 10px 15px rgba(0,0,0,0.5); border-top: 1px solid var(--color-verde); }
             .nav-links.active { left: 0; }
             .nav-links a, .nav-links button { font-size: 1.2rem; padding: 15px; width: 100%; display: block; }
             .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
@@ -904,62 +826,19 @@
             .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
-        /* MARCO ESTILO CARTELERA VINTAGE - DISTRIBUCIÓN HORIZONTAL (90deg) (V1.1 OPTIMIZADO) */
-        .frame-top,
-        .frame-bottom {
-            height: 20px;
-            position: fixed;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            pointer-events: none;
-            /* SVG optimizado utilizando <defs> y <use> con estrella con rombo central y rayados sutiles */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='20'%3E%3Cdefs%3E%3Cg id='sparkle'%3E%3Cline x1='27' y1='7' x2='33' y2='13' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='33' y1='7' x2='27' y2='13' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='30' y1='2' x2='30' y2='18' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cline x1='22' y1='10' x2='38' y2='10' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cpath d='M30 4L31 9 L36 10L31 11L30 16L29 11L24 10L29 9Z' fill='%23ffffff'/%3E%3C/g%3E%3C/defs%3E%3Cstyle%3E@keyframes blink%7B0%25,100%25%7Bopacity:0.35%3B%7D50%25%7Bopacity:1%3B%7D%7D.st1%7Banimation:blink 4s infinite ease-in-out%3B%7D.st2%7Banimation:blink 5.5s infinite ease-in-out%3B%7D.st3%7Banimation:blink 4.8s infinite ease-in-out%3B%7D.st4%7Banimation:blink 6.2s infinite ease-in-out%3B%7D%3C/style%3E%3Cline x1='0' y1='10' x2='300' y2='10' stroke='%238e8e8e' stroke-width='0.5' opacity='0.3'/%3E%3Cuse href='%23sparkle' class='st1' x='0' y='0'/%3E%3Cuse href='%23sparkle' class='st2' x='60' y='0'/%3E%3Cuse href='%23sparkle' class='st3' x='120' y='0'/%3E%3Cuse href='%23sparkle' class='st4' x='180' y='0'/%3E%3Cg opacity='0.25' transform='translate(270, 10)'%3E%3Ccircle cx='-2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='0' cy='1.5' r='2.2' fill='%23059669'/%3E%3Cpath d='M0,1.5 Q1,4 3,5' stroke='%23059669' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E");
-            background-repeat: repeat-x;
-            transition: filter 0.3s ease-in-out;
-        }
+        /* MARCOS DECORATIVOS SVG */
+        .frame-top, .frame-bottom { height: 20px; position: fixed; left: 0; right: 0; z-index: 900; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='20'%3E%3Cdefs%3E%3Cg id='sparkle'%3E%3Cline x1='27' y1='7' x2='33' y2='13' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='33' y1='7' x2='27' y2='13' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='30' y1='2' x2='30' y2='18' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cline x1='22' y1='10' x2='38' y2='10' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cpath d='M30 4L31 9 L36 10L31 11L30 16L29 11L24 10L29 9Z' fill='%23ffffff'/%3E%3C/g%3E%3C/defs%3E%3Cstyle%3E@keyframes blink%7B0%25,100%25%7Bopacity:0.35%3B%7D50%25%7Bopacity:1%3B%7D%7D.st1%7Banimation:blink 4s infinite ease-in-out%3B%7D.st2%7Banimation:blink 5.5s infinite ease-in-out%3B%7D.st3%7Banimation:blink 4.8s infinite ease-in-out%3B%7D.st4%7Banimation:blink 6.2s infinite ease-in-out%3B%7D%3C/style%3E%3Cline x1='0' y1='10' x2='300' y2='10' stroke='%238e8e8e' stroke-width='0.5' opacity='0.3'/%3E%3Cuse href='%23sparkle' class='st1' x='0' y='0'/%3E%3Cuse href='%23sparkle' class='st2' x='60' y='0'/%3E%3Cuse href='%23sparkle' class='st3' x='120' y='0'/%3E%3Cuse href='%23sparkle' class='st4' x='180' y='0'/%3E%3Cg opacity='0.25' transform='translate(270, 10)'%3E%3Ccircle cx='-2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='0' cy='1.5' r='2.2' fill='%23059669'/%3E%3Cpath d='M0,1.5 Q1,4 3,5' stroke='%23059669' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: repeat-x; transition: filter 0.3s ease-in-out; }
+        .frame-top { top: 0; } .frame-bottom { bottom: 0; }
 
-        .frame-top { top: 0; }
-        .frame-bottom { bottom: 0; }
+        .frame-left, .frame-right { width: 20px; position: fixed; top: 0; bottom: 0; z-index: 900; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='300'%3E%3Cdefs%3E%3Cg id='sparkle-v'%3E%3Cline x1='7' y1='27' x2='13' y2='33' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='13' y1='27' x2='7' y2='33' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='10' y1='22' x2='10' y2='38' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cline x1='2' y1='30' x2='18' y2='30' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cpath d='M10 24L11 29L16 30L11 31L10 36L9 31L4 30L9 29Z' fill='%23ffffff'/%3E%3C/g%3E%3C/defs%3E%3Cstyle%3E@keyframes blink%7B0%25,100%25%7Bopacity:0.35%3B%7D50%25%7Bopacity:1%3B%7D%7D.st1%7Banimation:blink 5.5s infinite ease-in-out%3B%7D.st2%7Banimation:blink 7.5s infinite ease-in-out%3B%7D.st3%7Banimation:blink 6.5s infinite ease-in-out%3B%7D.st4%7Banimation:blink 8.5s infinite ease-in-out%3B%7D%3C/style%3E%3Cline x1='10' y1='0' x2='10' y2='300' stroke='%238e8e8e' stroke-width='0.5' opacity='0.3'/%3E%3Cuse href='%23sparkle-v' class='st1' x='0' y='0'/%3E%3Cuse href='%23sparkle-v' class='st2' x='0' y='60'/%3E%3Cuse href='%23sparkle-v' class='st3' x='0' y='120'/%3E%3Cuse href='%23sparkle-v' class='st4' x='0' y='180'/%3E%3Cg opacity='0.25' transform='translate(10, 270)'%3E%3Ccircle cx='-2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='0' cy='1.5' r='2.2' fill='%23059669'/%3E%3Cpath d='M0,1.5 Q1,4 3,5' stroke='%23059669' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: repeat-y; transition: filter 0.3s ease-in-out; }
+        .frame-left { left: 0; } .frame-right { right: 0; }
 
-        /* MARCO ESTILO CARTELERA VINTAGE - DISTRIBUCIÓN VERTICAL (0deg) (V1.1 OPTIMIZADO) */
-        .frame-left,
-        .frame-right {
-            width: 20px;
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            z-index: 9999;
-            pointer-events: none;
-            /* SVG vertical optimizado que reduce su longitud considerablemente */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='300'%3E%3Cdefs%3E%3Cg id='sparkle-v'%3E%3Cline x1='7' y1='27' x2='13' y2='33' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='13' y1='27' x2='7' y2='33' stroke='%238e8e8e' stroke-width='0.5'/%3E%3Cline x1='10' y1='22' x2='10' y2='38' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cline x1='2' y1='30' x2='18' y2='30' stroke='%238e8e8e' stroke-width='0.75'/%3E%3Cpath d='M10 24L11 29L16 30L11 31L10 36L9 31L4 30L9 29Z' fill='%23ffffff'/%3E%3C/g%3E%3C/defs%3E%3Cstyle%3E@keyframes blink%7B0%25,100%25%7Bopacity:0.35%3B%7D50%25%7Bopacity:1%3B%7D%7D.st1%7Banimation:blink 5.5s infinite ease-in-out%3B%7D.st2%7Banimation:blink 7.5s infinite ease-in-out%3B%7D.st3%7Banimation:blink 6.5s infinite ease-in-out%3B%7D.st4%7Banimation:blink 8.5s infinite ease-in-out%3B%7D%3C/style%3E%3Cline x1='10' y1='0' x2='10' y2='300' stroke='%238e8e8e' stroke-width='0.5' opacity='0.3'/%3E%3Cuse href='%23sparkle-v' class='st1' x='0' y='0'/%3E%3Cuse href='%23sparkle-v' class='st2' x='0' y='60'/%3E%3Cuse href='%23sparkle-v' class='st3' x='0' y='120'/%3E%3Cuse href='%23sparkle-v' class='st4' x='0' y='180'/%3E%3Cg opacity='0.25' transform='translate(10, 270)'%3E%3Ccircle cx='-2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='2' cy='-2' r='2' fill='%23059669'/%3E%3Ccircle cx='0' cy='1.5' r='2.2' fill='%23059669'/%3E%3Cpath d='M0,1.5 Q1,4 3,5' stroke='%23059669' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E");
-            background-repeat: repeat-y;
-            transition: filter 0.3s ease-in-out;
-        }
-
-        .frame-left { left: 0; }
-        .frame-right { right: 0; }
-
-        /* LÍNEA DE DETALLE VERDE INFERIOR (DEBAJO DE MARCO SUPERIOR DE 20PX) */
-        .lucha-top-line {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            height: 2px;
-            background-color: #006847;
-            z-index: 9998;
-            pointer-events: none;
-        }
-
-        /* Brillo interactivo al comprar o entrar a checkout (Cherry on top) */
-        .frame-flash {
-            filter: brightness(2.2) drop-shadow(0 0 12px var(--color-amarillo)) drop-shadow(0 0 6px #ffffff) !important;
-        }
+        .lucha-top-line { position: fixed; top: 20px; left: 20px; right: 20px; height: 2px; background-color: #006847; z-index: 890; pointer-events: none; }
+        .frame-flash { filter: brightness(2.2) drop-shadow(0 0 12px var(--color-amarillo)) drop-shadow(0 0 6px #ffffff) !important; }
     </style>
 </head>
 <body>
-    <!-- MARCO DECORATIVO DE ESTRELLAS Y TRÉBOLES CON VECTORES SVG Twinkling (FUSIONADO V1.1) -->
+    <!-- MARCO DECORATIVO -->
     <div class="frame-top"></div>
     <div class="frame-bottom"></div>
     <div class="frame-left"></div>
@@ -970,18 +849,17 @@
     <header>
         <div class="nav-container">
             <a href="#" class="nav-logo">🍀 RIFAS LUCHA MX</a>
-            
             <button class="menu-toggle" id="mobile-menu-btn" aria-label="Abrir menú">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
-
             <nav class="nav-links" id="nav-menu">
-                <a href="#sorteos" onclick="closeMenu()">Sorteos</a>
-                <a href="#boletos" onclick="closeMenu()">Adquirir</a>
+                <a href="#sorteos" class="highlight-nav" onclick="closeMenu()">Sorteo Vigente</a>
+                <a href="#participar" onclick="closeMenu()">Cómo Participar</a>
+                <a href="#como-funciona" onclick="closeMenu()">Cómo Funciona</a>
+                <a href="#boletos" onclick="closeMenu()">Comprar Boletos</a>
                 <a href="#faq" onclick="closeMenu()">Ayuda</a>
-                <button class="btn-menu-admin" onclick="solicitarAccesoAdmin(); closeMenu();">🔑 Panel Admin</button>
             </nav>
         </div>
     </header>
@@ -992,24 +870,15 @@
             <div class="logo-container">
                 <img src="logo.png" alt="Rifas Lucha México" class="official-logo">
             </div>
-
-            <div class="ribbon">
-                🎟️ Boletos para la rifa más esperada en México 🎟️
-            </div>
-
+            <div class="ribbon">🎟️ Boletos para la rifa más esperada en México 🎟️</div>
             <h1 class="main-title">Tres ganadores, tres caídas… ¡Más oportunidades de ganar!</h1>
-            <p class="subtitle">
-                Súbete al cuadrilátero y prueba tu suerte. ¡Rifas completamente en vivo!
-            </p>
-
-            <!-- BOTÓN DE EN VIVO CON FORMATO DE TU SEGUNDA IMAGEN -->
+            <p class="subtitle">Súbete al cuadrilátero y prueba tu suerte. ¡Rifas completamente en vivo!</p>
             <div style="display: flex; justify-content: center;">
                 <div class="btn-live-glow">
                     <span class="live-dot"></span>
                     <span>¡Rifas completamente en vivo!</span>
                 </div>
             </div>
-
             <div class="actions-grid">
                 <div class="actions-row">
                     <a href="#sorteos" class="btn btn-hero-cartelera">🔥 Ver Cartelera de Rifas</a>
@@ -1019,22 +888,22 @@
         </section>
 
         <!-- PARTICIPA EN 3 SIMPLES PASOS -->
-        <section class="pasos-section">
+<section id="participar" class="pasos-section">
             <div class="section-header-lucha">
                 <h2>¿Cómo participar?</h2>
             </div>
             <div class="pasos-grid">
-                <div class="paso-card" onclick="document.getElementById('reserveForm').scrollIntoView({behavior: 'smooth', block: 'center'});" title="Ir al formulario para subir comprobante">
+                <div class="paso-card" onclick="document.getElementById('reserveForm').scrollIntoView({behavior: 'smooth', block: 'center'});">
                     <div class="paso-icon">🎟️</div>
                     <h4>1. Elige y Regístrate</h4>
                     <p>Selecciona tus boletos disponibles y completa el formulario con tus datos personales para apartarlos.</p>
                 </div>
-                <div class="paso-card" onclick="abrirModalPago()" title="Ver métodos de pago disponibles">
+                <div class="paso-card" onclick="abrirModalPago()">
                     <div class="paso-icon">💳</div>
                     <h4>2. Realiza tu Pago</h4>
                     <p>Haz tu pago a través de depósito, transferencia o Spin by OXXO y guarda tu ticket o captura de pantalla.</p>
                 </div>
-                <div class="paso-card" onclick="document.getElementById('reserveForm').scrollIntoView({behavior: 'smooth', block: 'center'});" title="Ir al formulario para subir comprobante">
+                <div class="paso-card" onclick="document.getElementById('reserveForm').scrollIntoView({behavior: 'smooth', block: 'center'});">
                     <div class="paso-icon">📤</div>
                     <h4>3. Sube tu Comprobante</h4>
                     <p>Carga la foto de tu pago directamente aquí en la página usando los datos que registraste para validar tus boletos.</p>
@@ -1047,15 +916,12 @@
             <div class="raffle-main-grid">
                 <div class="raffle-info">
                     <h3 id="displayRaffleTitle">🏆 Sorteo Estelar de Campeonato</h3>
-                    
                     <ul class="premios-list">
                         <li>🥇 <strong>1er Lugar:</strong> <span id="displayPrize1">-</span></li>
                         <li>🥈 <strong>2do Lugar:</strong> <span id="displayPrize2">-</span></li>
                         <li>🥉 <strong>3er Lugar:</strong> <span id="displayPrize3">-</span></li>
                     </ul>
-
                     <div class="price-tag">Boleto: <span id="displayTicketPrice">$50</span> MXN</div>
-                    
                     <div class="progress-container">
                         <div class="progress-label">
                             <span>Progreso de Venta</span>
@@ -1066,28 +932,47 @@
                         </div>
                     </div>
                 </div>
-
                 <div style="z-index: 1; text-align: center;">
-                    <p style="font-weight:700; color:var(--color-amarillo); font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">Próxima Rifa: <span id="displayRaffleDate">-</span></p>
-                    
+                    <p style="font-weight:700; color:var(--color-amarillo); font-size: 1.25rem; text-transform: uppercase; margin-bottom: 10px;">Próxima Rifa: <span id="displayRaffleDate">-</span></p>
                     <div class="active-prizes-images">
-                        <div class="active-prize-img-container">
-                            <img id="displayPrize1Img" src="" alt="Premio 1">
-                        </div>
-                        <div class="active-prize-img-container">
-                            <img id="displayPrize2Img" src="" alt="Premio 2">
-                        </div>
-                        <div class="active-prize-img-container">
-                            <img id="displayPrize3Img" src="" alt="Premio 3">
-                        </div>
+                        <div class="active-prize-img-container"><img id="displayPrize1Img" src="" alt="Premio 1"></div>
+                        <div class="active-prize-img-container"><img id="displayPrize2Img" src="" alt="Premio 2"></div>
+                        <div class="active-prize-img-container"><img id="displayPrize3Img" src="" alt="Premio 3"></div>
                     </div>
-
                     <p style="font-size:0.85rem; color:var(--color-texto-mutado); margin-top:15px;">Resultados basados en la Lotería Nacional.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN DE GANADORES RECIENTES (REDISTRIBUIDO, CENTRADO Y DE 3 COLUMNAS SIMÉTRICAS) -->
+        <!-- DINÁMICA DE PREMIACIÓN -->
+        <section id="como-funciona" class="mecanica-section">
+            <div class="section-header-lucha">
+                <h3>¿Cómo se elige a los ganadores?</h3>
+            </div>
+            <p class="mecanica-intro">
+                Nuestros sorteos se basan en los resultados de la Lotería Nacional.<br>
+                Se forma tu boleto de 6 dígitos uniendo las siguientes posiciones:
+            </p>
+            <div class="mecanica-imagen">
+                <img src="ejemplo-loteria.png" alt="Ejemplo de combinación ganadora de la Lotería Nacional">
+            </div>
+            <div class="mecanica-grid">
+                <div class="mecanica-regla regla-roja">
+                    <div class="mecanica-medalla">🥇</div>
+                    <div class="mecanica-texto texto-rojo">Se toman los últimos 3 dígitos del primer lugar <span>MÁS</span> los últimos 3 dígitos del segundo lugar.</div>
+                </div>
+                <div class="mecanica-regla regla-azul">
+                    <div class="mecanica-medalla">🥈</div>
+                    <div class="mecanica-texto texto-azul">Se toman los últimos 3 dígitos del tercer lugar <span>MÁS</span> los últimos 3 dígitos del cuarto lugar.</div>
+                </div>
+                <div class="mecanica-regla regla-amarilla">
+                    <div class="mecanica-medalla">🥉</div>
+                    <div class="mecanica-texto texto-amarillo">Se toman los últimos 3 dígitos del quinto lugar <span>MÁS</span> los últimos 3 dígitos del sexto lugar.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE GANADORES RECIENTES -->
         <section class="ganadores-section">
             <div class="section-header-lucha">
                 <h3>Ganadores Anteriores</h3>
@@ -1102,17 +987,14 @@
             <div class="section-header-lucha">
                 <h3>Adquiere tus Boletos</h3>
             </div>
-            
             <div class="ticket-info-banner">
                 <p>Se tomarán los últimos 3 dígitos del premio mayor continuo de los últimos 3 dígitos del segundo lugar.</p>
                 <p>Emisiones: <span class="highlight">999,999</span></p>
                 <p class="highlight">¡¡¡Se puede participar de toda la República!!!</p>
             </div>
-
             <p style="font-size: 1rem; font-weight: bold; color: var(--color-texto-claro); text-align: center; margin-bottom: 20px;">
                 Selecciona tus boletos de la lista de abajo ⬇️
             </p>
-
             <div class="ticket-controls-row">
                 <div class="control-box-item">
                     <label for="randomQtySelect">Boletos al Azar</label>
@@ -1123,26 +1005,21 @@
                         <option value="5">5 BOLETOS</option>
                         <option value="10">10 BOLETOS</option>
                         <option value="20">20 BOLETOS</option>
-                        <option value="30">30 BOLETOS</option>
-                        <option value="40">40 BOLETOS</option>
                         <option value="50">50 BOLETOS</option>
-                        <option value="100">100 BOLETOS</option>
                     </select>
                     <button class="control-btn" onclick="comprarAlAzarSelect()">🎲 Generar al azar</button>
                 </div>
-
                 <div class="control-box-item">
                     <label for="searchInput">Buscar Número</label>
                     <input type="text" id="searchInput" class="control-input" placeholder="Folio (ej: 863914)" maxlength="6">
                     <div style="display: flex; gap: 8px; width: 100%;">
                         <button class="control-btn" onclick="buscarNumero()">Buscar</button>
-                        <button class="control-btn btn-clear-control" onclick="limpiarBusqueda()" title="Limpiar búsqueda">✕</button>
+                        <button class="control-btn btn-clear-control" onclick="limpiarBusqueda()">✕</button>
                     </div>
                 </div>
             </div>
-
             <p style="font-size: 0.8rem; color: var(--color-texto-mutado); text-align: center; margin-bottom: 15px;">
-                Sugerencias de números disponibles (actualiza la lista para ver más): 
+                Sugerencias de números disponibles: 
                 <button onclick="generarBoletosSugeridos()" style="background:none; border:none; color:var(--color-amarillo); font-weight:bold; cursor:pointer; text-decoration:underline;">Actualizar lista</button>
                 | <button onclick="limpiarSeleccion()" style="background:none; border:none; color:var(--color-rojo); font-weight:bold; cursor:pointer; text-decoration:underline;">🧹 Vaciar Carrito</button>
             </p>
@@ -1162,61 +1039,29 @@
                     <p style="font-size: 0.9rem;">Boletos Seleccionados: <strong id="selectedList" style="color:var(--color-rojo); letter-spacing: 0.5px;">Ninguno</strong></p>
                     <p style="font-size: 0.9rem; margin-top: 5px;">Total a liquidar: <strong id="totalAmount" style="color:var(--color-verde-brillante); font-size:1.3rem;">$0 MXN</strong></p>
                 </div>
-
                 <form class="checkout-form" id="reserveForm" onsubmit="procesarReservaLocal(event)">
                     <div class="input-group">
                         <label for="buyerName">Nombre Completo</label>
                         <input type="text" id="buyerName" required placeholder="Escribe tu nombre">
                     </div>
                     <div class="input-group">
-                        <label for="buyerPhone">Número de WhatsApp (10 dígitos)</label>
+                        <label for="buyerPhone">Número de WhatsApp</label>
                         <input type="tel" id="buyerPhone" required placeholder="Ej. 5512345678" pattern="[0-9]{10}">
                     </div>
                     <div class="input-group" style="grid-column: 1 / -1;">
                         <label for="buyerState">Selecciona tu Estado</label>
                         <select id="buyerState" required>
                             <option value="">-- Selecciona un estado --</option>
-                            <option value="Aguascalientes">Aguascalientes</option>
-                            <option value="Baja California">Baja California</option>
-                            <option value="Baja California Sur">Baja California Sur</option>
-                            <option value="Campeche">Campeche</option>
-                            <option value="Chiapas">Chiapas</option>
-                            <option value="Chihuahua">Chihuahua</option>
                             <option value="Ciudad de México">Ciudad de México</option>
-                            <option value="Coahuila">Coahuila</option>
-                            <option value="Colima">Colima</option>
-                            <option value="Durango">Durango</option>
-                            <option value="Estado de México">Estado de México</option>
-                            <option value="Guanajuato">Guanajuato</option>
-                            <option value="Guerrero">Guerrero</option>
-                            <option value="Hidalgo">Hidalgo</option>
                             <option value="Jalisco">Jalisco</option>
-                            <option value="Michoacán">Michoacán</option>
-                            <option value="Morelos">Morelos</option>
-                            <option value="Nayarit">Nayarit</option>
                             <option value="Nuevo León">Nuevo León</option>
-                            <option value="Oaxaca">Oaxaca</option>
-                            <option value="Puebla">Puebla</option>
-                            <option value="Querétaro">Querétaro</option>
-                            <option value="Quintana Roo">Quintana Roo</option>
-                            <option value="San Luis Potosí">San Luis Potosí</option>
-                            <option value="Sinaloa">Sinaloa</option>
-                            <option value="Sonora">Sonora</option>
-                            <option value="Tabasco">Tabasco</option>
-                            <option value="Tamaulipas">Tamaulipas</option>
-                            <option value="Tlaxcala">Tlaxcala</option>
-                            <option value="Veracruz">Veracruz</option>
-                            <option value="Yucatán">Yucatán</option>
-                            <option value="Zacatecas">Zacatecas</option>
+                            <option value="Otro">Otro Estado...</option>
                         </select>
                     </div>
-                    
-                    <!-- CAMPO: CARGAR COMPROBANTE -->
                     <div class="input-group" style="grid-column: 1 / -1;">
                         <label for="buyerProof" style="color: var(--color-amarillo);">Subir Comprobante de Pago</label>
                         <input type="file" id="buyerProof" accept="image/*" required style="padding: 8px;">
                     </div>
-
                     <button type="submit" class="btn-submit" id="submitBtn" disabled>CONFIRMAR BOLETOS Y SUBIR COMPROBANTE</button>
                 </form>
             </div>
@@ -1227,172 +1072,19 @@
             <div class="section-header-lucha">
                 <h3>Preguntas Frecuentes</h3>
             </div>
-            
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cómo se elige al ganador? <span>▼</span></div>
-                <div class="faq-answer">Todos nuestros sorteos se realizan con base en los resultados de las combinaciones numéricas de la Lotería Nacional de México para asegurar total transparencia.</div>
+                <div class="faq-answer">Todos nuestros sorteos se realizan con base en los resultados de la Lotería Nacional de México para asegurar total transparencia.</div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuánto tiempo tengo para pagar mi boleto? <span>▼</span></div>
-                <div class="faq-answer">Una vez reservados tus números, dispones de un periodo de 12 horas para efectuar el pago y subir tu comprobante directamente en la página para que la reservación se marque como oficial.</div>
+                <div class="faq-answer">Una vez reservados tus números, dispones de un periodo de 12 horas para efectuar el pago y subir tu comprobante directamente en la página.</div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">¿Cuáles son los métodos de pago aceptados? <span>▼</span></div>
-                <div class="faq-answer">Aceptamos transferencias electrónicas SPEI, depósitos en tiendas OXXO y corresponsalías bancarias autorizadas.</div>
+                <div class="faq-answer">Aceptamos transferencias electrónicas SPEI, depósitos en tiendas OXXO y corresponsalías bancarias.</div>
             </div>
         </section>
-    </div>
-
-    <!-- VENTANA EMERGENTE (MODAL) DEL ADMINISTRADOR -->
-    <div class="modal-admin-overlay" id="modalAdmin" onclick="cerrarModalAdmin(event)">
-        <div class="admin-modal" onclick="event.stopPropagation()">
-            <div class="admin-modal-header">
-                PANEL DE ADMINISTRACIÓN
-                <button class="admin-modal-close" onclick="cerrarModalAdminDirecto()">×</button>
-            </div>
-            <div class="admin-modal-body">
-                
-                <!-- 1. GESTIONAR EXPORTACIÓN DE REPORTES (.CSV) -->
-                <div class="admin-card-section">
-                    <div class="admin-card-title">Grid de Reportes (.CSV para Excel)</div>
-                    <p style="font-size: 0.75rem; color: #6b7280; margin-bottom: 10px;">
-                        Descarga el listado completo de boletos apartados y pagados organizado en formato de base de datos legible para Excel.
-                    </p>
-                    <div class="admin-report-box">
-                        <select id="adminReportMonth" style="padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; font-size: 0.9rem; margin-right: 10px;">
-                            <option value="Sorteo_Mayo">Sorteo Mayo</option>
-                        </select>
-                        <button class="admin-btn-blue" style="background-color: var(--color-verde);" onclick="exportarBaseDatosACSV()">⬇ Descargar Reporte (.CSV)</button>
-                    </div>
-                </div>
-
-                <!-- 2. EDITAR DATOS E IMÁGENES DEL SORTEO -->
-                <div class="admin-card-section">
-                    <div class="admin-card-title">Ajustes del Sorteo Activo</div>
-                    <div class="admin-edit-grid">
-                        <div class="admin-form-group">
-                            <label>Fecha de la Rifa</label>
-                            <input type="text" id="adminInputDate">
-                        </div>
-                        <div class="admin-form-group">
-                            <label>Precio del Boleto ($)</label>
-                            <input type="number" id="adminInputPrice">
-                        </div>
-                        <!-- 1er Premio -->
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>1er Lugar (Premio)</label>
-                            <input type="text" id="adminInputPrize1">
-                        </div>
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>Imagen 1er Premio</label>
-                            <input type="text" id="adminInputPrize1Img" placeholder="Pegar URL de la imagen o sube una abajo">
-                            <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminInputPrize1Img')">
-                        </div>
-                        
-                        <!-- 2do Premio -->
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>2do Lugar (Premio)</label>
-                            <input type="text" id="adminInputPrize2">
-                        </div>
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>Imagen 2do Premio</label>
-                            <input type="text" id="adminInputPrize2Img" placeholder="Pegar URL de la imagen o sube una abajo">
-                            <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminInputPrize2Img')">
-                        </div>
-                        
-                        <!-- 3er Premio -->
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>3er Lugar (Premio)</label>
-                            <input type="text" id="adminInputPrize3">
-                        </div>
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>Imagen 3er Premio</label>
-                            <input type="text" id="adminInputPrize3Img" placeholder="Pegar URL de la imagen o sube una abajo">
-                            <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminInputPrize3Img')">
-                        </div>
-                    </div>
-                    <button class="admin-btn-blue" style="width: 100%; margin-top: 15px;" onclick="guardarConfigSorteo()">💾 Guardar Ajustes</button>
-                </div>
-
-                <!-- 3. GESTIONAR GANADORES (CRUD CON SUBIDA DE IMAGEN LOCAL) -->
-                <div class="admin-card-section">
-                    <div class="admin-card-title">Agregar Ganador Anterior</div>
-                    <div class="admin-edit-grid">
-                        <div class="admin-form-group">
-                            <label>Nombre del Ganador</label>
-                            <input type="text" id="adminWinnerName" placeholder="Ej. Juan Pérez">
-                        </div>
-                        <div class="admin-form-group">
-                            <label>Boleto Ganador</label>
-                            <input type="text" id="adminWinnerTicket" placeholder="Ej. #863914" maxlength="6">
-                        </div>
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>Premio Obtenido</label>
-                            <input type="text" id="adminWinnerPrize" placeholder="Ej. iPhone 15 Pro Max">
-                        </div>
-                        <div class="admin-form-group" style="grid-column: 1 / -1;">
-                            <label>Imagen del Ganador</label>
-                            <input type="text" id="adminWinnerImg" placeholder="URL de la imagen del ganador o sube una abajo">
-                            <input type="file" accept="image/*" style="margin-top: 5px; font-size: 0.8rem;" onchange="procesarArchivoImagen(this, 'adminWinnerImg')">
-                        </div>
-                    </div>
-                    <button class="admin-btn-blue" style="width: 100%; margin-top: 15px; background-color: var(--color-verde);" onclick="agregarGanadorLocal()">➕ Registrar Ganador</button>
-                    
-                    <div style="margin-top: 20px;">
-                        <label style="font-size: 0.75rem; font-weight: bold; color: #4b5563; text-transform: uppercase;">Eliminar Ganadores:</label>
-                        <div id="adminWinnerDeleteList" style="margin-top:10px; max-height:150px; overflow-y:auto; border:1px solid #d1d5db; padding: 10px; border-radius:6px; background:#fff;">
-                            <!-- JS Genera lista para borrar -->
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 4. BUSCADOR DE BOLETOS -->
-                <div class="admin-card-section">
-                    <div class="admin-card-title">Búsqueda y Control de Boletos</div>
-                    <div class="admin-search-form">
-                        <input type="text" id="adminModalSearchInput" class="admin-input-txt" placeholder="Buscar boleto...">
-                        <button class="admin-btn-blue" onclick="buscarBoletoAdminModal()">🔍 Buscar</button>
-                        <button class="admin-btn-gray" onclick="cerrarModalAdminDirecto()">← Regresar</button>
-                    </div>
-                </div>
-
-                <!-- Resultados de Búsqueda -->
-                <div class="admin-results-card" id="adminModalResults">
-                    <div class="admin-card-title">Resultados de Búsqueda</div>
-                    <div class="results-ticket-head">
-                        <span class="badge-folio" id="adminResFolio">#21266</span>
-                        <span class="badge-estado-actual pagado" id="adminResStatus">PAGADO</span>
-                        <span style="font-size: 0.8rem; color: #4b5563;">👁️ Boletos</span>
-                    </div>
-                    <div class="results-row">
-                        <span>👤 Nombre</span>
-                        <strong id="adminResName">MARCO ANTONIO NUÑEZ CABRERA</strong>
-                    </div>
-                    <div class="results-row">
-                        <span>💬 WhatsApp</span>
-                        <strong id="adminResPhone">******6237</strong>
-                    </div>
-                    <div class="results-row">
-                        <span>📅 Apartado</span>
-                        <strong id="adminResDate">2026-04-20 22:59:40</strong>
-                    </div>
-                    <div class="results-row" style="border-bottom: none;">
-                        <span>📄 Comprobante</span>
-                        <strong id="adminResComprobante" style="color: #10b981;">✔ Aprobado</strong>
-                    </div>
-                    <div class="admin-buttons-row">
-                        <button class="btn-panel-action btn-panel-send" onclick="simularEnvioWhatsApp()">💬 Enviar Boletos</button>
-                        <button class="btn-panel-action btn-panel-pay" onclick="adminModalAccion('pagar')">📝 Boleto Pagado</button>
-                        <button class="btn-panel-action btn-panel-edit" onclick="alert('Función de edición en desarrollo para producción.')">✏️ Editar</button>
-                        <button class="btn-panel-action btn-panel-tickets" onclick="alert('Abriendo listado general de boletos asignados.')">🎫 Boletos</button>
-                        <button class="btn-panel-action btn-panel-revert" onclick="adminModalAccion('revertir')">🔄 Revertir Pago</button>
-                        <button class="btn-panel-action btn-panel-delete" onclick="adminModalAccion('eliminar')">✖ Desapartar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- MODAL METODOS DE PAGO -->
@@ -1403,118 +1095,128 @@
             <p style="font-size: 0.85rem; text-align: center; color: #64748b; margin-bottom: 15px;">Toca una cuenta para copiar el número de inmediato.</p>
             
             <div class="bank-item" onclick="copiarTexto('4152314237767739', 'BBVA')">
-                <div class="bank-brand">
-                    <div class="bank-logo-placeholder" style="background-color: #004481;"></div>
-                    <span>BBVA</span>
-                </div>
+                <div class="bank-brand"><div class="bank-logo-placeholder" style="background-color: #004481;"></div><span>BBVA</span></div>
                 <div style="font-size:0.8rem; color:#64748b;">Titular: ALMA FIGUEROA</div>
                 <div class="bank-card-number">4152 3142 3776 7739</div>
             </div>
-
             <div class="bank-item" onclick="copiarTexto('4217470091678355', 'Spin by OXXO')">
-                <div class="bank-brand">
-                    <div class="bank-logo-placeholder" style="background-color: #4f46e5;"></div>
-                    <span>SPIN BY OXXO</span>
-                </div>
+                <div class="bank-brand"><div class="bank-logo-placeholder" style="background-color: #4f46e5;"></div><span>SPIN BY OXXO</span></div>
                 <div style="font-size:0.8rem; color:#64748b;">Titular: DANIEL HERNANDEZ</div>
                 <div class="bank-card-number">4217 4700 9167 8355</div>
             </div>
-
-            <div class="bank-item" onclick="copiarTexto('4213166181436191', 'HSBC')">
-                <div class="bank-brand">
-                    <div class="bank-logo-placeholder" style="background-color: #db2777;"></div>
-                    <span>HSBC</span>
-                </div>
-                <div style="font-size:0.8rem; color:#64748b;">Titular: DANIEL HERNANDEZ</div>
-                <div class="bank-card-number">4213 1661 8143 6191</div>
-            </div>
-
-            <div class="bank-item" onclick="copiarTexto('4043130018460358', 'Scotiabank')">
-                <div class="bank-brand">
-                    <div class="bank-logo-placeholder" style="background-color: #d91c29;"></div>
-                    <span>SCOTIABANK</span>
-                </div>
-                <div style="font-size:0.8rem; color:#64748b;">Titular: NORMA ALBA</div>
-                <div class="bank-card-number">4043 1300 1846 0358</div>
-            </div>
-
             <div class="copy-hint">👆 ¡Toca cualquier cuenta para copiar!</div>
         </div>
     </div>
 
-    <!-- MODAL AVISO DE PRIVACIDAD INTEGRAL -->
+    <!-- MODAL AVISO DE PRIVACIDAD -->
     <div class="modal-overlay" id="modalPrivacidad" onclick="cerrarModalPrivacidad(event)">
         <div class="privacy-modal" onclick="event.stopPropagation()">
             <button class="modal-close" onclick="cerrarModalPrivacidadDirecto()">×</button>
             <h3 class="modal-title-privacidad">📄 Aviso de Privacidad</h3>
             <div class="privacy-body">
-                <p><strong>Responsable del tratamiento de sus datos personales</strong></p>
-                <p>En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), <strong>Rifas Lucha México</strong>, con dirección de correo electrónico <a href="mailto:contacto@rifasluchamexico.com">contacto@rifasluchamexico.com</a>, declara ser el responsable de recabar, tratar y proteger los datos personales que usted nos proporciona.</p>
                 
-                <p><strong>Datos personales que recabamos</strong></p>
+                <h4 style="color: #ffffff; margin-top: 10px; margin-bottom: 8px; font-size: 1rem;">Responsable del tratamiento de sus datos personales</h4>
+                <p>En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), <strong>Rifas Lucha México</strong>, con dirección de correo electrónico <a href="mailto:contacto@rifasluchamexico.com">contacto@rifasluchamexico.com</a>, declara ser el responsable de recabar, tratar y proteger los datos personales que usted nos proporciona.</p>
+
+                <h4 style="color: #ffffff; margin-top: 20px; margin-bottom: 8px; font-size: 1rem;">Datos personales que recabamos</h4>
                 <p>Para llevar a cabo las reservas, apartados y validación de boletos para nuestros sorteos, solicitamos los siguientes datos personales:</p>
                 <ul>
-                    <li>Nombre completo (para el registro oficial del boleto).</li>
-                    <li>Número de teléfono de WhatsApp (10 dígitos, necesario para el envío del boleto digital y coordinación de entrega).</li>
-                    <li>Estado de la República de residencia (fines estadísticos y de logística de entrega).</li>
-                    <li>Comprobante de depósito o transferencia bancaria (fines exclusivos de validación de pago).</li>
+                    <li><strong>Nombre completo</strong> (para el registro oficial del boleto).</li>
+                    <li><strong>Número de teléfono de WhatsApp</strong> (10 dígitos, necesario para el envío del boleto digital y coordinación de entrega).</li>
+                    <li><strong>Estado de la República de residencia</strong> (fines estadísticos y de logística de entrega).</li>
+                    <li><strong>Comprobante de depósito o transferencia bancaria</strong> (fines exclusivos de validación de pago).</li>
                 </ul>
 
-                <p><strong>Finalidades del tratamiento</strong></p>
+                <h4 style="color: #ffffff; margin-top: 20px; margin-bottom: 8px; font-size: 1rem;">Finalidades del tratamiento</h4>
                 <p>Los datos que nos proporciona serán utilizados exclusivamente para los siguientes fines necesarios para la relación del sorteo:</p>
-                <ol>
+                <ul>
                     <li>Registrar y apartar los folios de boletos seleccionados de manera local.</li>
                     <li>Validar que las operaciones de pago correspondan a los números reservados.</li>
                     <li>Enviar los boletos digitales confirmados directamente a su WhatsApp.</li>
                     <li>Contactar y publicar de manera oficial las iniciales del ganador de cada sorteo de acuerdo con los resultados de la Lotería Nacional de México.</li>
-                </ol>
+                </ul>
 
-                <p><strong>Derechos ARCO</strong></p>
-                <p>Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es su derecho solicitar la corrección de su información (Rectificación), que la eliminemos de nuestros registros de base de datos cuando considere que no está siendo utilizada adecuadamente (Cancelación), así como oponerse al uso de sus datos personales para fines específicos (Oposición). Para el ejercicio de cualquiera de estos derechos ARCO, usted deberá enviar una solicitud por escrito al correo <a href="mailto:contacto@rifasluchamexico.com">contacto@rifasluchamexico.com</a>.</p>
+                <h4 style="color: #ffffff; margin-top: 20px; margin-bottom: 8px; font-size: 1rem;">Derechos ARCO</h4>
+                <p>Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (<strong>Acceso</strong>). Asimismo, es su derecho solicitar la corrección de su información (<strong>Rectificación</strong>), que la eliminemos de nuestros registros de base de datos cuando considere que no está siendo utilizada adecuadamente (<strong>Cancelación</strong>), así como oponerse al uso de sus datos personales para fines específicos (<strong>Oposición</strong>). Para el ejercicio de cualquiera de estos derechos ARCO, usted deberá enviar una solicitud por escrito al correo <a href="mailto:contacto@rifasluchamexico.com">contacto@rifasluchamexico.com</a>.</p>
 
-                <p><strong>No transferencia de datos</strong></p>
+                <h4 style="color: #ffffff; margin-top: 20px; margin-bottom: 8px; font-size: 1rem;">No transferencia de datos</h4>
                 <p>Le garantizamos que sus datos personales no serán vendidos, transferidos, alquilados ni compartidos con ninguna tercera persona, empresa o entidad ajena a este sitio web, salvo por requerimiento obligatorio de una autoridad judicial o fiscal competente del Estado Mexicano.</p>
 
-                <p><strong>Modificaciones al aviso de privacidad</strong></p>
+                <h4 style="color: #ffffff; margin-top: 20px; margin-bottom: 8px; font-size: 1rem;">Modificaciones al aviso de privacidad</h4>
                 <p>El presente aviso de privacidad puede sufrir modificaciones, cambios o actualizaciones derivadas de nuevos requerimientos legales o de nuestras propias prácticas de seguridad informática. Cualquier modificación estará disponible de manera inmediata a través de este portal web.</p>
-                
-                <p style="font-size: 0.75rem; text-align: center; color: var(--color-texto-mutado); margin-top: 20px; border-top: 1px solid var(--color-borde); padding-top: 15px;">
-                    Última actualización: Mayo de 2026.
-                </p>
+
+                <p style="text-align: right; margin-top: 30px; font-style: italic; font-size: 0.8rem; color: #94a3b8;">Última actualización: Mayo de 2026.</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL EXITO ESTILIZADO -->
+<!-- MODAL POLÍTICAS DE SERVICIO -->
+    <div class="modal-overlay" id="modalPoliticas" onclick="cerrarModalPoliticas(event)">
+        <div class="privacy-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="cerrarModalPoliticasDirecto()">×</button>
+            <h3 class="modal-title-privacidad">📜 Políticas de Servicio</h3>
+            <div class="privacy-body">
+                
+                <p style="text-align: center; color: #ffffff; font-weight: bold; font-size: 1rem; margin-bottom: 25px;">
+                    Organizamos rifas <span style="color: var(--color-verde-brillante);">A NIVEL NACIONAL</span>, en las que puedes participar desde cualquier parte de la república mexicana adquiriendo tu boleto digital.
+                </p>
+
+                <h4 style="color: var(--color-rojo); text-align: center; font-size: 1.1rem; margin-bottom: 20px; text-transform: uppercase;">Aviso Importante de Nuestras Rifas</h4>
+
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <p>
+                        <strong style="color: var(--color-amarillo); font-size: 1.1rem;">A)</strong> En nuestras rifas puede haber uno o más ganadores y será aclarado desde el inicio de la publicación de cada rifa, es decir, que cada rifa es independiente del o las anteriores, activas o concluidas.<br><br>
+                        Refiriéndonos a que una o varias rifas hechas por esta empresa RIFAS LUCHA MÉXICO, pueden tener un 1er lugar, un 2do lugar y un 3er lugar. Otra rifa puede tener 1er lugar y 2do lugar, y/o otra rifa solo tendrá 1er lugar.<br>
+                        El número de ganadores será publicado, comunicado y/o confirmado en el inicio de cada una de las rifas.
+                    </p>
+
+                    <p>
+                        <strong style="color: var(--color-amarillo); font-size: 1.1rem;">B)</strong> Para llevar a cabo cada una de las rifas y poder proceder a determinar él o los ganadores, <strong style="color: #ffffff;">"deberá estar vendido mínimo el 85% de los boletos digitales de cada rifa"</strong>. En caso de que no sea posible realizarse la rifa, esta se reagendará en un video en vivo.
+                    </p>
+
+                    <p>
+                        <strong style="color: var(--color-amarillo); font-size: 1.1rem;">C)</strong> El ganador y/o ganadores serán él y/o los participantes que tengan el boleto digital con el número ganador correspondiente a la rifa. Deberán coincidir sus datos personales con su identificación oficial personal y número de celular registrado al momento de la compra del boleto.<br><br>
+                        Además, el boleto debe haber sido pagado propiamente en tiempo y forma antes de darse a conocer los números ganadores en la transmisión en vivo de la Lotería Nacional de México; de lo contrario, no procederá el reclamo del premio ni el ganador y/o ganadores y se reprogramará una nueva fecha para la rifa.
+                    </p>
+
+                    <p>
+                        <strong style="color: var(--color-amarillo); font-size: 1.1rem;">D)</strong> Él o los números ganadores se seleccionarán de acuerdo a los números ganadores de los sorteos de la Lotería Nacional de México. <strong style="color: #ffffff; text-decoration: underline;">NO HACEMOS LAS RIFAS CON TÓMBOLAS CASERAS.</strong>
+                    </p>
+
+                    <p style="background-color: rgba(217, 29, 42, 0.1); border-left: 4px solid var(--color-rojo); padding: 15px; border-radius: 4px;">
+                        <strong style="color: var(--color-amarillo); font-size: 1.1rem;">E)</strong> <strong style="color: #ff4d4d;">SI EL COMPROBANTE DEL BOLETO NO ES CLARO O SE DETECTA QUE SE HA UTILIZADO UN MISMO COMPROBANTE PARA VARIOS REGISTROS, SERÁ ANULADO ANTICIPADAMENTE A LA FECHA DE LA RIFA.</strong>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL EXITO -->
     <div class="modal-overlay" id="modalExito" onclick="cerrarModalExito(event)">
         <div class="payment-modal" onclick="event.stopPropagation()" style="text-align: center;">
             <button class="modal-close" onclick="cerrarModalExitoDirecto()">×</button>
             <div style="font-size: 3rem; margin-bottom: 10px;">🏆</div>
             <h3 class="modal-title-pago" style="border-bottom: none; margin-bottom: 10px; color: var(--color-verde-brillante);">¡REGISTRO EXITOSO!</h3>
-            <p style="font-size: 0.85rem; color: #111827; margin-bottom: 20px; font-weight: bold; text-transform: uppercase; tracking-wide;">Tus números han sido registrados en la taquilla estelar</p>
+            <p style="font-size: 0.85rem; font-weight: bold; text-transform: uppercase;">Tus números han sido registrados en la taquilla estelar</p>
             
-            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: left; margin-bottom: 20px; font-size: 0.85rem;">
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: left; margin-bottom: 20px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
                     <span style="color: #64748b; font-weight: bold;">Luchador Comprador:</span>
-                    <strong id="successBuyerName" style="color: #111827; text-transform: uppercase;">-</strong>
+                    <strong id="successBuyerName">-</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;">
                     <span style="color: #64748b; font-weight: bold;">Boletos Reservados:</span>
-                    <strong id="successTickets" style="color: var(--color-rojo); font-weight: 900;">-</strong>
+                    <strong id="successTickets" style="color: var(--color-rojo);">-</strong>
                 </div>
                 <div style="display: flex; justify-content: space-between; padding-top: 4px;">
                     <span style="color: #64748b; font-weight: bold;">Total a liquidar:</span>
-                    <strong id="successTotal" style="color: var(--color-verde-brillante); font-weight: 900;">-</strong>
+                    <strong id="successTotal" style="color: var(--color-verde-brillante);">-</strong>
                 </div>
             </div>
-
-            <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 12px; font-size: 0.8rem; color: #065f46; text-align: left; margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
-                <span>⏳</span>
-                <p style="margin: 0; line-height: 1.4;">El administrador validará tu transferencia y activará tus boletos como <strong style="color: #047857;">confirmados</strong> a la brevedad.</p>
-            </div>
-
             <div style="display: flex; flex-direction: column; gap: 10px;">
-                <a id="successWhatsappBtn" href="#" target="_blank" class="btn btn-hero-pago" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 900; background-color: #25d366 !important; border-color: #25d366 !important; width: 100%;">
+                <a id="successWhatsappBtn" href="#" target="_blank" class="btn btn-hero-pago" style="display: flex; align-items: center; justify-content: center; background-color: #25d366 !important; border-color: #25d366 !important; width: 100%;">
                     Notificar por WhatsApp
                 </a>
                 <button class="btn btn-hero-cartelera" onclick="cerrarModalExitoDirecto()" style="width: 100%; border: none;">Regresar a la Taquilla</button>
@@ -1522,41 +1224,24 @@
         </div>
     </div>
 
-    <!-- PIE DE PÁGINA REDISEÑADO -->
+    <!-- PIE DE PÁGINA -->
     <footer>
         <div class="footer-content">
             <a href="#" class="footer-logo">🍀 RIFAS LUCHA MÉXICO 🍀</a>
-            
-            <div class="footer-socials">
-                <a href="https://facebook.com" class="social-icon-link" target="_blank" aria-label="Facebook">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                    </svg>
-                </a>
-                <a href="https://instagram.com" class="social-icon-link" target="_blank" aria-label="Instagram">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07;"/>
-                    </svg>
-                </a>
-                <a href="https://tiktok.com" class="social-icon-link" target="_blank" aria-label="TikTok">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.02 1.59 4.23.97 1.21 2.34 2.05 3.84 2.42v3.91c-1.23-.1-2.46-.49-3.56-1.15-.99-.6-1.81-1.42-2.4-2.4v9.64c0 1.25-.26 2.49-.78 3.63-.53 1.15-1.29 2.16-2.26 2.97-.97.81-2.11 1.41-3.35 1.76-1.24.35-2.54.48-3.82.38-1.57-.12-3.08-.72-4.34-1.72-1.26-1-2.17-2.39-2.63-3.95s-.39-3.24.19-4.77C1.51 9.01 2.7 7.74 4.21 6.98c1.33-.67 2.82-.96 4.3-.84v3.95c-.86-.06-1.72.13-2.48.56-.76.43-1.34 1.11-1.64 1.93-.31.83-.34 1.73-.08 2.58s.8 1.57 1.53 2.06c.64.43 1.39.66 2.16.65.65.01 1.29-.11 1.88-.37.59-.25 1.11-.64 1.51-1.13.4-.49.69-1.07.84-1.69.15-.62.19-1.27.12-1.9V.02z"/>
-                    </svg>
-                </a>
-            </div>
-
             <div class="footer-contact-info">
-                <p>¿Tienes dudas o necesitas asistencia? Contáctanos en: <a href="mailto:contacto@rifasluchamexico.com">contacto@rifasluchamexico.com</a></p>
+                <p>Contáctanos en: <a href="mailto:contacto@rifasluchamexico.com">contacto@rifasluchamexico.com</a></p>
             </div>
-
             <div class="footer-bottom">
-                <p>&copy; 2025 Rifas Lucha México.</p>
-                <span class="link-privacidad" onclick="abrirModalPrivacidad()">Aviso de Privacidad</span>
+               <div class="footer-bottom">
+                <p>&copy; 2026 Rifas Lucha México.</p>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                    <span class="link-privacidad" onclick="abrirModalPoliticas()">Políticas de Servicio</span>
+                    <span class="link-privacidad" onclick="abrirModalPrivacidad()">Aviso de Privacidad</span>
+                </div>
             </div>
-        </div>
     </footer>
 
-    <!-- LÓGICA SCRIPT -->
+    <!-- LÓGICA SCRIPT FRONTEND -->
     <script>
         // Menú móvil
         const menuBtn = document.getElementById('mobile-menu-btn');
@@ -1566,7 +1251,6 @@
             menuBtn.classList.toggle('is-active');
             navMenu.classList.toggle('active');
         });
-
         function closeMenu() {
             menuBtn.classList.remove('is-active');
             navMenu.classList.remove('active');
@@ -1575,29 +1259,16 @@
         const maxBoletoPosible = 999999; 
         const selectedTickets = new Set();
         
-        // Base de datos de boletos (persiste en localStorage)
-        const databaseBoletos = JSON.parse(localStorage.getItem('databaseBoletos')) || {
-            '863914': { name: 'MARCO ANTONIO NUÑEZ CABRERA', phone: '5512346237', state: 'Ciudad de México', status: 'pagado', date: '2026-04-20 22:59:40', proofImg: null },
-            '000112': { name: 'NORMA ALBA', phone: '4441580123', state: 'San Luis Potosí', status: 'pagado', date: '2026-04-19 14:15:10', proofImg: null },
-            '000452': { name: 'DANIEL HERNANDEZ', phone: '3315124152', state: 'Jalisco', status: 'apartado', date: '2026-04-21 09:30:00', proofImg: null }
-        };
-
-        function saveDatabase() {
-            localStorage.setItem('databaseBoletos', JSON.stringify(databaseBoletos));
-        }
+        // Base de datos local
+        const databaseBoletos = JSON.parse(localStorage.getItem('databaseBoletos')) || {};
+        function saveDatabase() { localStorage.setItem('databaseBoletos', JSON.stringify(databaseBoletos)); }
 
         const defaultSorteoConfig = {
-            date: "30 de Mayo",
-            price: 50,
-            prize1: "iPhone Último Modelo",
-            prize1_img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&auto=format&fit=crop&q=60",
-            prize2: "iPad Retina Display",
-            prize2_img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&auto=format&fit=crop&q=60",
-            prize3: "$5,000 MXN en Efectivo",
-            prize3_img: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?w=200&auto=format&fit=crop&q=60"
+            date: "30 de Mayo", price: 50,
+            prize1: "iPhone Último Modelo", prize1_img: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=200&auto=format&fit=crop&q=60",
+            prize2: "iPad Retina Display", prize2_img: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=200&auto=format&fit=crop&q=60",
+            prize3: "$5,000 MXN en Efectivo", prize3_img: "https://images.unsplash.com/photo-1589758438368-0ad531db3366?w=200&auto=format&fit=crop&q=60"
         };
-
-        // Lista de ganadores que incluye 3 registros por defecto alineados simétricamente
         const defaultGanadores = [
             { id: 1, name: "CARLOS ORTIZ", ticket: "000112", prize: "iPad Retina Display", img: "https://images.unsplash.com/photo-1597466765990-64ad1c35dafc?w=400&auto=format&fit=crop&q=60" },
             { id: 2, name: "ALBERTO GÓMEZ", ticket: "000088", prize: "$5,000 en Efectivo", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&auto=format&fit=crop&q=60" },
@@ -1612,44 +1283,30 @@
         const totalAmountText = document.getElementById('totalAmount');
         const submitBtn = document.getElementById('submitBtn');
 
+        // Función Limpia (Sin inputs del Admin)
         function aplicarConfiguracionPublica() {
             document.getElementById('displayRaffleDate').textContent = activeConfig.date;
             document.getElementById('displayTicketPrice').textContent = `$${activeConfig.price}`;
             document.getElementById('displayPrize1').textContent = activeConfig.prize1;
             document.getElementById('displayPrize2').textContent = activeConfig.prize2;
             document.getElementById('displayPrize3').textContent = activeConfig.prize3;
-
             document.getElementById('displayPrize1Img').src = activeConfig.prize1_img || '';
             document.getElementById('displayPrize2Img').src = activeConfig.prize2_img || '';
             document.getElementById('displayPrize3Img').src = activeConfig.prize3_img || '';
-
-            document.getElementById('adminInputDate').value = activeConfig.date;
-            document.getElementById('adminInputPrice').value = activeConfig.price;
-            document.getElementById('adminInputPrize1').value = activeConfig.prize1;
-            document.getElementById('adminInputPrize1Img').value = activeConfig.prize1_img;
-            document.getElementById('adminInputPrize2').value = activeConfig.prize2;
-            document.getElementById('adminInputPrize2Img').value = activeConfig.prize2_img;
-            document.getElementById('adminInputPrize3').value = activeConfig.prize3;
-            document.getElementById('adminInputPrize3Img').value = activeConfig.prize3_img;
         }
 
+        // Función Limpia (Sin lista de borrado del Admin)
         function renderGanadores() {
             const container = document.getElementById('ganadoresGrid');
-            const deleteListContainer = document.getElementById('adminWinnerDeleteList');
             container.innerHTML = '';
-            deleteListContainer.innerHTML = '';
-
             if (activeGanadores.length === 0) {
                 container.innerHTML = '<p style="grid-column: 1/-1; color: var(--color-texto-mutado);">Aún no hay ganadores registrados.</p>';
-                deleteListContainer.innerHTML = '<p style="color: #6b7280; font-size:0.8rem;">Sin ganadores.</p>';
                 return;
             }
-
             activeGanadores.forEach(ganador => {
                 const card = document.createElement('div');
                 card.classList.add('ganador-card');
                 const imgSrc = ganador.img ? ganador.img : '';
-
                 card.innerHTML = `
                     <div class="ganador-img-container">
                         <span class="ganador-badge-card">Ganador</span>
@@ -1662,136 +1319,21 @@
                     </div>
                 `;
                 container.appendChild(card);
-
-                const deleteItem = document.createElement('div');
-                deleteItem.style.display = 'flex';
-                deleteItem.style.justifyContent = 'space-between';
-                deleteItem.style.alignItems = 'center';
-                deleteItem.style.padding = '5px 0';
-                deleteItem.style.borderBottom = '1px solid #f3f4f6';
-                deleteItem.style.fontSize = '0.8rem';
-                deleteItem.style.color = '#1f2937';
-
-                deleteItem.innerHTML = `
-                    <span>${ganador.name} (Boleto #${ganador.ticket})</span>
-                    <button onclick="eliminarGanador(${ganador.id})" style="background-color: var(--color-rojo); color:white; border:none; padding: 2px 8px; border-radius:4px; cursor:pointer;">Eliminar</button>
-                `;
-                deleteListContainer.appendChild(deleteItem);
             });
         }
 
-        function agregarGanadorLocal() {
-            const nombre = document.getElementById('adminWinnerName').value;
-            const boleto = document.getElementById('adminWinnerTicket').value.padStart(6, '0');
-            const premio = document.getElementById('adminWinnerPrize').value;
-            const img = document.getElementById('adminWinnerImg').value;
-
-            if (!nombre || !boleto || !premio) {
-                alert("Por favor completa los campos obligatorios.");
-                return;
-            }
-
-            const nuevoGanador = {
-                id: Date.now(),
-                name: nombre.toUpperCase(),
-                ticket: boleto,
-                prize: premio,
-                img: img
-            };
-
-            activeGanadores.push(nuevoGanador);
-            localStorage.setItem('ganadoresList', JSON.stringify(activeGanadores));
-            
-            document.getElementById('adminWinnerName').value = '';
-            document.getElementById('adminWinnerTicket').value = '';
-            document.getElementById('adminWinnerPrize').value = '';
-            document.getElementById('adminWinnerImg').value = '';
-
-            renderGanadores();
-            alert("Ganador registrado correctamente.");
-        }
-
-        function eliminarGanador(id) {
-            activeGanadores = activeGanadores.filter(g => g.id !== id);
-            localStorage.setItem('ganadoresList', JSON.stringify(activeGanadores));
-            renderGanadores();
-        }
-
-        function guardarConfigSorteo() {
-            const nuevaFecha = document.getElementById('adminInputDate').value;
-            const nuevoPrecio = parseInt(document.getElementById('adminInputPrice').value);
-            const nuevoPrize1 = document.getElementById('adminInputPrize1').value;
-            const nuevoPrize1Img = document.getElementById('adminInputPrize1Img').value;
-            const nuevoPrize2 = document.getElementById('adminInputPrize2').value;
-            const nuevoPrize2Img = document.getElementById('adminInputPrize2Img').value;
-            const nuevoPrize3 = document.getElementById('adminInputPrize3').value;
-            const nuevoPrize3Img = document.getElementById('adminInputPrize3Img').value;
-
-            if (isNaN(nuevoPrecio) || nuevoPrecio <= 0) {
-                alert("Introduce un precio válido.");
-                return;
-            }
-
-            activeConfig = {
-                date: nuevaFecha,
-                price: nuevoPrecio,
-                prize1: nuevoPrize1,
-                prize1_img: nuevoPrize1Img,
-                prize2: nuevoPrize2,
-                prize2_img: nuevoPrize2Img,
-                prize3: nuevoPrize3,
-                prize3_img: nuevoPrize3Img
-            };
-
-            localStorage.setItem('sorteoConfig', JSON.stringify(activeConfig));
-            aplicarConfiguracionPublica();
-            updateSummary();
-            alert("Configuración de sorteo guardada.");
-        }
-
-        function exportarBaseDatosACSV() {
-            const mesSorteo = document.getElementById('adminReportMonth').value;
-            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; 
-            csvContent += "Boleto,Nombre Comprador,WhatsApp,Estado,Estatus Pago,Fecha Apartado\r\n";
-
-            let registrosEncontrados = 0;
-            for (const ticket in databaseBoletos) {
-                const info = databaseBoletos[ticket];
-                const fila = `"${ticket}","${info.name}","${info.phone}","${info.state}","${info.status.toUpperCase()}","${info.date}"\r\n`;
-                csvContent += fila;
-                registrosEncontrados++;
-            }
-
-            if (registrosEncontrados === 0) {
-                alert("No hay boletos apartados ni vendidos para exportar en este momento.");
-                return;
-            }
-
-            const encodedUri = encodeURI(csvContent);
-            const downloadLink = document.createElement("a");
-            downloadLink.setAttribute("href", encodedUri);
-            downloadLink.setAttribute("download", `Reporte_Sorteo_LuchaMX_${mesSorteo}.csv`);
-            document.body.appendChild(downloadLink);
-            downloadLink.click(); 
-            document.body.removeChild(downloadLink); 
-        }
-
         let boletosSugeridosActuales = [];
-
         function generarBoletosSugeridos() {
             boletosSugeridosActuales = [];
             while (boletosSugeridosActuales.length < 196) { 
                 const randomNum = String(Math.floor(Math.random() * maxBoletoPosible)).padStart(6, '0');
-                if (!boletosSugeridosActuales.includes(randomNum)) {
-                    boletosSugeridosActuales.push(randomNum);
-                }
+                if (!boletosSugeridosActuales.includes(randomNum)) boletosSugeridosActuales.push(randomNum);
             }
             renderGrid();
         }
 
         function renderGrid() {
             gridElement.innerHTML = '';
-            
             boletosSugeridosActuales.forEach(num => {
                 const ticketDiv = document.createElement('div');
                 ticketDiv.classList.add('boleto-item');
@@ -1814,94 +1356,62 @@
             });
         }
 
-        // Función para detonar un destello neón en el marco durante 0.5 segundos (Cherry on top)
         function triggerFrameFlash() {
             const frames = document.querySelectorAll('.frame-top, .frame-bottom, .frame-left, .frame-right');
             frames.forEach(f => f.classList.add('frame-flash'));
-            setTimeout(() => {
-                frames.forEach(f => f.classList.remove('frame-flash'));
-            }, 500);
+            setTimeout(() => frames.forEach(f => f.classList.remove('frame-flash')), 500);
         }
 
         function toggleSelectTicket(num, element) {
             if (databaseBoletos[num] && databaseBoletos[num].status === 'pagado') return;
-
             if (selectedTickets.has(num)) {
                 selectedTickets.delete(num);
                 element.classList.remove('selected');
             } else {
                 selectedTickets.add(num);
                 element.classList.add('selected');
-                triggerFrameFlash(); // Destello interactivo al seleccionar
+                triggerFrameFlash(); 
             }
             updateSummary();
         }
 
         function seleccionarAleatorios(cantidad) {
-            let agregados = 0;
-            let intentos = 0;
+            let agregados = 0, intentos = 0;
             const limiteIntentos = cantidad * 10; 
-
             while (agregados < cantidad && intentos < limiteIntentos) {
                 const randomNum = String(Math.floor(Math.random() * maxBoletoPosible)).padStart(6, '0');
                 if (!databaseBoletos[randomNum] && !selectedTickets.has(randomNum)) {
                     selectedTickets.add(randomNum);
-                    
                     const el = document.querySelector(`[data-number="${randomNum}"]`);
                     if (el) el.classList.add('selected');
-                    
                     agregados++;
                 }
                 intentos++;
             }
-            if (agregados > 0) {
-                triggerFrameFlash(); // Destello interactivo al generar al azar
-            }
+            if (agregados > 0) triggerFrameFlash(); 
             updateSummary();
         }
 
         function comprarAlAzarSelect() {
             const selectEl = document.getElementById('randomQtySelect');
             const cantidad = parseInt(selectEl.value);
-            if (isNaN(cantidad) || cantidad <= 0) return;
-            seleccionarAleatorios(cantidad);
+            if (!isNaN(cantidad) && cantidad > 0) seleccionarAleatorios(cantidad);
         }
 
-        function limpiarSeleccion() {
-            selectedTickets.clear();
-            renderGrid();
-            updateSummary();
-        }
-
-        function limpiarBusqueda() {
-            document.getElementById('searchInput').value = '';
-            generarBoletosSugeridos();
-        }
+        function limpiarSeleccion() { selectedTickets.clear(); renderGrid(); updateSummary(); }
+        function limpiarBusqueda() { document.getElementById('searchInput').value = ''; generarBoletosSugeridos(); }
 
         function buscarNumero() {
             const val = document.getElementById('searchInput').value.trim().padStart(6, '0');
-            
-            if (val.length !== 6 || isNaN(val)) {
-                alert('Por favor introduce un número válido de 6 dígitos.');
-                return;
-            }
-
-            if (databaseBoletos[val] && databaseBoletos[val].status === 'pagado') {
-                alert(`El folio #${val} ya se encuentra vendido o reservado.`);
-                return;
-            }
-
-            if (!boletosSugeridosActuales.includes(val)) {
-                boletosSugeridosActuales.unshift(val);
-                renderGrid();
-            }
-
+            if (val.length !== 6 || isNaN(val)) { alert('Por favor introduce un número válido de 6 dígitos.'); return; }
+            if (databaseBoletos[val] && databaseBoletos[val].status === 'pagado') { alert(`El folio #${val} ya está vendido.`); return; }
+            if (!boletosSugeridosActuales.includes(val)) { boletosSugeridosActuales.unshift(val); renderGrid(); }
             const el = document.querySelector(`[data-number="${val}"]`);
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 el.style.transform = "scale(1.2)";
                 setTimeout(() => el.style.transform = "scale(1)", 500);
-                triggerFrameFlash(); // Destello interactivo al encontrar un boleto buscado
+                triggerFrameFlash(); 
             }
         }
 
@@ -1919,18 +1429,13 @@
 
         function procesarReservaLocal(e) {
             e.preventDefault();
-            
             const name = document.getElementById('buyerName').value.trim();
             const phone = document.getElementById('buyerPhone').value.trim();
             const state = document.getElementById('buyerState').value;
             const proofFile = document.getElementById('buyerProof').files[0];
             
-            if (!proofFile) {
-                alert("Por favor, sube la foto de tu comprobante de pago.");
-                return;
-            }
+            if (!proofFile) { alert("Sube tu comprobante de pago."); return; }
 
-            // Desactivar botón para evitar doble clic
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
             btn.textContent = "Procesando...";
@@ -1941,33 +1446,22 @@
                 const numbers = Array.from(selectedTickets).join(', ');
                 const totalCalculated = selectedTickets.size * activeConfig.price;
 
-                // Guardar en la "base de datos" local
                 selectedTickets.forEach(t => {
                     databaseBoletos[t] = {
-                        name: name.toUpperCase(),
-                        phone: phone,
-                        state: state,
-                        status: 'apartado', 
-                        date: new Date().toISOString().replace('T', ' ').substring(0, 19),
-                        proofImg: base64Img
+                        name: name.toUpperCase(), phone: phone, state: state, status: 'apartado', 
+                        date: new Date().toISOString().replace('T', ' ').substring(0, 19), proofImg: base64Img
                     };
                 });
-
                 saveDatabase();
-                triggerFrameFlash(); // Destello interactivo al procesar checkout exitosamente
+                triggerFrameFlash(); 
 
-                // Llenar datos en el Modal de éxito
                 document.getElementById('successBuyerName').textContent = name.toUpperCase();
                 document.getElementById('successTickets').textContent = Array.from(selectedTickets).map(t => `#${t}`).join(', ');
                 document.getElementById('successTotal').textContent = `$${totalCalculated} MXN`;
-
-                const waText = encodeURIComponent(`Hola, acabo de registrar mis boletos (${numbers}) para el sorteo de Rifas Lucha México. Adjunto mi comprobante a nombre de ${name.toUpperCase()}.`);
+                const waText = encodeURIComponent(`Hola, registré mis boletos (${numbers}) para el sorteo de Rifas Lucha México. Adjunto mi comprobante a nombre de ${name.toUpperCase()}.`);
                 document.getElementById('successWhatsappBtn').href = `https://wa.me/525512345678?text=${waText}`;
 
-                // Abrir el Modal de éxito
                 abrirModalExito();
-
-                // Limpiar formulario y carrito
                 selectedTickets.clear();
                 document.getElementById('reserveForm').reset();
                 renderGrid();
@@ -1975,11 +1469,10 @@
                 btn.textContent = "CONFIRMAR BOLETOS Y SUBIR COMPROBANTE";
                 btn.disabled = true;
             };
-
             lector.readAsDataURL(proofFile);
         }
 
-        // --- LÓGICA DE CONTROL DE MODALES ---
+        // Modales de cara al cliente
         function abrirModalExito() { document.getElementById('modalExito').classList.add('active'); }
         function cerrarModalExito(e) { if (e.target === document.getElementById('modalExito')) cerrarModalExitoDirecto(); }
         function cerrarModalExitoDirecto() { document.getElementById('modalExito').classList.remove('active'); }
@@ -1991,93 +1484,12 @@
         function abrirModalPrivacidad() { document.getElementById('modalPrivacidad').classList.add('active'); }
         function cerrarModalPrivacidad(e) { if (e.target === document.getElementById('modalPrivacidad')) cerrarModalPrivacidadDirecto(); }
         function cerrarModalPrivacidadDirecto() { document.getElementById('modalPrivacidad').classList.remove('active'); }
-
-        // --- PANEL DE ADMINISTRACIÓN ---
-        function solicitarAccesoAdmin() {
-            const password = prompt("Ingresa la contraseña del Administrador:");
-            if (password === "admin123") {
-                abrirModalAdmin();
-            } else if (password !== null) {
-                alert("Contraseña incorrecta. Acceso denegado.");
-            }
-        }
-
-        function abrirModalAdmin() { document.getElementById('modalAdmin').classList.add('active'); }
-        function cerrarModalAdmin(e) { if (e.target === document.getElementById('modalAdmin')) cerrarModalAdminDirecto(); }
-        function cerrarModalAdminDirecto() { document.getElementById('modalAdmin').classList.remove('active'); }
-
-        let boletoAdminBuscadoNum = null;
-
-        function buscarBoletoAdminModal() {
-            const ticketId = document.getElementById('adminModalSearchInput').value.padStart(6, '0');
-            const data = databaseBoletos[ticketId];
-            const resultsCard = document.getElementById('adminModalResults');
-
-            if (data) {
-                boletoAdminBuscadoNum = ticketId;
-                document.getElementById('adminResFolio').textContent = `#${ticketId}`;
-                document.getElementById('adminResName').textContent = data.name;
-                document.getElementById('adminResPhone').textContent = data.phone;
-                document.getElementById('adminResDate').textContent = data.date;
-
-                const statusBadge = document.getElementById('adminResStatus');
-                statusBadge.textContent = data.status.toUpperCase();
-                statusBadge.className = `badge-estado-actual ${data.status}`;
-
-                const compText = document.getElementById('adminResComprobante');
-                if (data.proofImg) {
-                    compText.innerHTML = `<button onclick="verComprobanteAdmin('${data.proofImg}')" style="background:var(--color-verde); color:white; border:none; padding:6px 10px; border-radius:4px; cursor:pointer; font-size:0.75rem; font-weight:bold;">👁️ Ver Comprobante</button>`;
-                } else {
-                    compText.textContent = '❌ Sin archivo';
-                    compText.style.color = '#f43f5e';
-                }
-
-                resultsCard.style.display = "block";
-            } else {
-                resultsCard.style.display = "none";
-                alert('No se encontraron registros de apartado para este número.');
-            }
-        }
-
-        function verComprobanteAdmin(base64) {
-            const nuevaVentana = window.open();
-            nuevaVentana.document.write(`
-                <body style="background:#000; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
-                    <img src="${base64}" style="max-width:90%; max-height:90%; border: 3px solid #f59e0b; border-radius:8px;" title="Comprobante de Pago">
-                </body>
-            `);
-        }
-
-        function adminModalAccion(tipo) {
-            if (!boletoAdminBuscadoNum || !databaseBoletos[boletoAdminBuscadoNum]) return;
-
-            if (tipo === 'pagar') {
-                databaseBoletos[boletoAdminBuscadoNum].status = 'pagado';
-                alert(`Boleto #${boletoAdminBuscadoNum} aprobado y marcado como PAGADO.`);
-            } else if (tipo === 'revertir') {
-                databaseBoletos[boletoAdminBuscadoNum].status = 'apartado';
-                alert(`Pago revertido del boleto #${boletoAdminBuscadoNum}. Estado actual: APARTADO.`);
-            } else if (tipo === 'eliminar') {
-                delete databaseBoletos[boletoAdminBuscadoNum];
-                alert(`Se ha liberado el boleto #${boletoAdminBuscadoNum}. Vuelve a estar disponible.`);
-                document.getElementById('adminModalResults').style.display = "none";
-            }
-
-            saveDatabase();
-            buscarBoletoAdminModal();
-            renderGrid();
-        }
-
-        function simularEnvioWhatsApp() {
-            if (!boletoAdminBuscadoNum) return;
-            const data = databaseBoletos[boletoAdminBuscadoNum];
-            alert(`Simulando envío de boletos por WhatsApp para:\n\nComprador: ${data.name}\nWhatsApp: ${data.phone}\nBoleto: #${boletoAdminBuscadoNum}`);
-        }
+        function abrirModalPoliticas() { document.getElementById('modalPoliticas').classList.add('active'); }
+        function cerrarModalPoliticas(e) { if (e.target === document.getElementById('modalPoliticas')) cerrarModalPoliticasDirecto(); }
+        function cerrarModalPoliticasDirecto() { document.getElementById('modalPoliticas').classList.remove('active'); }
 
         function copiarTexto(texto, banco) {
-            navigator.clipboard.writeText(texto).then(() => {
-                alert(`Copiado: Cuenta ${banco} (${texto}) copiado al portapapeles.`);
-            });
+            navigator.clipboard.writeText(texto).then(() => { alert(`Copiado: Cuenta ${banco} (${texto}) copiado al portapapeles.`); });
         }
 
         function toggleFaq(element) {
@@ -2093,35 +1505,17 @@
             }
         }
 
-        function procesarArchivoImagen(inputElement, targetInputId) {
-            const archivo = inputElement.files[0];
-            if (archivo) {
-                if (archivo.size > 1024 * 1024) {
-                    alert("Aviso: Esta imagen es algo grande. Se recomienda usar imágenes comprimidas de menos de 1 MB para no saturar el almacenamiento del navegador.");
-                }
-                const lector = new FileReader();
-                lector.onload = function(e) {
-                    document.getElementById(targetInputId).value = e.target.result;
-                };
-                lector.readAsDataURL(archivo);
-            }
-        }
-
-        // Cierra modales al presionar fuera de sus ventanas contenedoras
         window.onclick = function(e) {
-            const modalPago = document.getElementById('modalPago');
-            const modalPrivacidad = document.getElementById('modalPrivacidad');
-            const modalExito = document.getElementById('modalExito');
-            if (e.target === modalPago) cerrarModalPagoDirecto();
-            if (e.target === modalPrivacidad) cerrarModalPrivacidadDirecto();
-            if (e.target === modalExito) cerrarModalExitoDirecto();
+            if (e.target === document.getElementById('modalPago')) cerrarModalPagoDirecto();
+            if (e.target === document.getElementById('modalPrivacidad')) cerrarModalPrivacidadDirecto();
+            if (e.target === document.getElementById('modalPoliticas')) cerrarModalPoliticasDirecto(); // <--- Esta es la nueva 
+            if (e.target === document.getElementById('modalExito')) cerrarModalExitoDirecto();
         }
 
-        // INICIALIZACIÓN DE LA APLICACIÓN
+        // Inicializar
         aplicarConfiguracionPublica();
         renderGanadores();
         generarBoletosSugeridos();
-
     </script>
 </body>
 </html>
